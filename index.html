@@ -374,48 +374,25 @@
             const mainContent = document.getElementById("main-content");
             const weddingMusic = document.getElementById("wedding-music");
 
+            // --- Pauses music if guest switches to another app ---
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden) {
-                    // If the user switches apps or tabs, pause the music
                     weddingMusic.pause();
                 } else {
-                    // If they come back to the invitation, resume the music
-                    // (But only if they have already passed the splash screen)
                     if (splashScreen.style.display === 'none') {
                         weddingMusic.play().catch(error => console.log("Could not auto-resume"));
                     }
                 }
             });
-            let audioUnlocked = false;
-            
-            function unlockAudio() {
-                if (!audioUnlocked) {
-                    // Force the browser to recognize the audio element
-                    weddingMusic.play().then(() => {
-                        weddingMusic.pause();
-                        audioUnlocked = true;
-                        
-                        // Clean up the event listeners once it's unlocked
-                        document.body.removeEventListener('touchstart', unlockAudio);
-                        document.body.removeEventListener('click', unlockAudio);
-                    }).catch(error => {
-                        console.log("Audio unlock waiting for stronger interaction...");
-                    });
-                }
-            }
-            
-            // Listen for the very first touch or tap anywhere on the screen
-            document.body.addEventListener('touchstart', unlockAudio, { once: true });
-            document.body.addEventListener('click', unlockAudio, { once: true });
-            // ----------------------------------------------
-            // Function to handle opening the invitation
+
+            // --- Function to handle opening the invitation ---
             function openInvitation() {
-                // Play the romantic music
+                // 1. Play the romantic music immediately
                 weddingMusic.play().catch(error => {
                     console.log("Audio couldn't play automatically:", error);
                 });
 
-                // Fade out splash screen
+                // 2. Fade out splash screen
                 splashScreen.style.opacity = '0';
                 
                 setTimeout(() => {
@@ -426,7 +403,7 @@
                 }, 1000);
             }
 
-            // 1. Detect Swipe Up on Mobile
+            // --- 1. Detect Swipe Up on Mobile ---
             let startY = 0;
             splashScreen.addEventListener("touchstart", (e) => {
                 startY = e.touches[0].clientY;
@@ -440,10 +417,10 @@
                 }
             });
 
-            // 2. Detect Click/Tap (Fallback for Desktop or simple tapping)
+            // --- 2. Detect Click/Tap (Fallback for Desktop or simple tapping) ---
             splashScreen.addEventListener("click", openInvitation);
 
-            // 3. Countdown Timer Logic
+            // --- 3. Countdown Timer Logic ---
             const countDownDate = new Date("Jul 31, 2026 00:00:00").getTime();
             const x = setInterval(function() {
                 const now = new Date().getTime();
