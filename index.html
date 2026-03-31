@@ -374,6 +374,40 @@
             const mainContent = document.getElementById("main-content");
             const weddingMusic = document.getElementById("wedding-music");
 
+            document.addEventListener("visibilitychange", function() {
+                if (document.hidden) {
+                    // If the user switches apps or tabs, pause the music
+                    weddingMusic.pause();
+                } else {
+                    // If they come back to the invitation, resume the music
+                    // (But only if they have already passed the splash screen)
+                    if (splashScreen.style.display === 'none') {
+                        weddingMusic.play().catch(error => console.log("Could not auto-resume"));
+                    }
+                }
+            });
+            let audioUnlocked = false;
+            
+            function unlockAudio() {
+                if (!audioUnlocked) {
+                    // Force the browser to recognize the audio element
+                    weddingMusic.play().then(() => {
+                        weddingMusic.pause();
+                        audioUnlocked = true;
+                        
+                        // Clean up the event listeners once it's unlocked
+                        document.body.removeEventListener('touchstart', unlockAudio);
+                        document.body.removeEventListener('click', unlockAudio);
+                    }).catch(error => {
+                        console.log("Audio unlock waiting for stronger interaction...");
+                    });
+                }
+            }
+            
+            // Listen for the very first touch or tap anywhere on the screen
+            document.body.addEventListener('touchstart', unlockAudio, { once: true });
+            document.body.addEventListener('click', unlockAudio, { once: true });
+            // ----------------------------------------------
             // Function to handle opening the invitation
             function openInvitation() {
                 // Play the romantic music
