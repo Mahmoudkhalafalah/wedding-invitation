@@ -60,7 +60,6 @@
             color: var(--accent-color);
             margin-bottom: 40px;
             opacity: 0;
-            /* Changed to only fade in and stay visible */
             animation: fadeIn 2s ease-in-out forwards;
         }
 
@@ -72,7 +71,6 @@
             border: 2px solid var(--primary-color);
             border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            /* Adds the pulsing animation after the opening finishes (5s delay) */
             animation: pulse 1.5s infinite alternate 5s;
         }
 
@@ -121,7 +119,6 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             opacity: 0;
-            /* Fades in right as the pulse starts */
             animation: fadeIn 1.5s forwards 5s;
             pointer-events: none;
         }
@@ -215,8 +212,15 @@
         }
 
         .details-section .venue {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .details-section .venue-hall {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--accent-color);
         }
 
         .venue-link {
@@ -285,7 +289,8 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-/* --- MUSIC TOGGLE BUTTON --- */
+
+        /* --- MUSIC TOGGLE BUTTON --- */
         #music-toggle {
             position: fixed;
             bottom: 30px;
@@ -316,6 +321,7 @@
             height: 20px;
             fill: currentColor;
         }
+
         /* Responsive Design */
         @media (max-width: 600px) {
             .header h1 {
@@ -348,6 +354,7 @@
     <audio id="wedding-music" loop>
         <source src="weddingMusic.mp3" type="audio/mpeg">
     </audio>
+
     <button id="music-toggle" aria-label="Toggle Music">
         <svg id="icon-pause" viewBox="0 0 24 24">
             <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
@@ -356,6 +363,7 @@
             <path d="M8 5v14l11-7z"/>
         </svg>
     </button>
+
     <div id="splash-screen">
         <div class="splash-message pinyon">A journey of love begins...</div>
         
@@ -380,7 +388,10 @@
         <div class="details-section">
             <h2>When & Where</h2>
             <div class="date">Friday, July 31st, 2026</div>
-            <div class="venue"><strong>Villa Rihana</strong></div>
+            <div class="venue">
+                <strong>Villa Rihana</strong><br>
+                <span class="venue-hall">Vienna Hall</span>
+            </div>
             <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link">View Map Location</a>
         </div>
 
@@ -439,6 +450,7 @@
                     weddingMusic.pause();
                 }
             });
+
             // --- Pauses music if guest switches to another app ---
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden) {
@@ -463,8 +475,11 @@
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
                     mainContent.style.display = 'block';
+                    
+                    // THIS IS THE FIX: Reveals the play/pause button!
+                    musicToggle.style.display = 'flex'; 
+                    
                     void mainContent.offsetWidth; // Trigger reflow
-                    musicToggle.style.display = 'flex';
                     mainContent.style.opacity = '1';
                 }, 1000);
             }
@@ -477,7 +492,6 @@
 
             splashScreen.addEventListener("touchend", (e) => {
                 let endY = e.changedTouches[0].clientY;
-                // If the user swiped up by more than 30 pixels
                 if (startY - endY > 30) {
                     openInvitation();
                 }
@@ -509,7 +523,6 @@
                 }
             }, 1000);
         });
-        
     </script>
 </body>
 </html>
