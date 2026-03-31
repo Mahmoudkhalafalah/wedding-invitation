@@ -151,10 +151,10 @@
         .tap-bubble {
             position: absolute;
             border-radius: 50%;
-            background-color: rgba(212, 163, 115, 0.4); /* primary color with transparency */
+            background-color: rgba(212, 163, 115, 0.4); 
             transform: scale(0);
             animation: bubbleExpand 0.8s ease-out forwards;
-            pointer-events: none; /* So it doesn't block clicks */
+            pointer-events: none; 
             z-index: 10000;
         }
 
@@ -474,6 +474,9 @@
             const iconPlay = document.getElementById("icon-play");
             const iconPause = document.getElementById("icon-pause");
 
+            // --- Memory variable to track if the user hit pause intentionally ---
+            let userManuallyPaused = false;
+
             // --- Keeps icons in sync with actual audio state ---
             weddingMusic.addEventListener('play', () => {
                 iconPlay.style.display = "none";
@@ -489,8 +492,10 @@
             musicToggle.addEventListener('click', () => {
                 if (weddingMusic.paused) {
                     weddingMusic.play();
+                    userManuallyPaused = false; // User wants to hear it again
                 } else {
                     weddingMusic.pause();
+                    userManuallyPaused = true; // User intentionally stopped it
                 }
             });
 
@@ -499,7 +504,8 @@
                 if (document.hidden) {
                     weddingMusic.pause();
                 } else {
-                    if (splashScreen.style.display === 'none') {
+                    // Only auto-play if they have opened the invite AND they didn't mute it manually
+                    if (splashScreen.style.display === 'none' && !userManuallyPaused) {
                         weddingMusic.play().catch(error => console.log("Could not auto-resume"));
                     }
                 }
@@ -526,7 +532,7 @@
                 }, 1000);
             }
 
-            // --- NEW: Single Tap & Bubble Effect ---
+            // --- Single Tap & Bubble Effect ---
             splashScreen.addEventListener("click", function handleTap(e) {
                 // 1. Create the expanding bubble element
                 const bubble = document.createElement("div");
