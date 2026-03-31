@@ -53,6 +53,7 @@
             z-index: 9999;
             transition: opacity 1s ease-in-out;
             cursor: pointer;
+            overflow: hidden; /* Contains the bubble animation */
         }
 
         .splash-message {
@@ -126,7 +127,7 @@
 
         .letter-heart {
             font-size: 1.2rem;
-            color: var(--primary-color); /* Matches the warm terracotta */
+            color: var(--primary-color);
             animation: heartbeat 0.8s infinite alternate;
         }
 
@@ -134,7 +135,6 @@
             0% { transform: scale(1); }
             100% { transform: scale(1.3); }
         }
-        /* --------------------------------- */
 
         .swipe-text {
             margin-top: 60px;
@@ -145,6 +145,22 @@
             opacity: 0;
             animation: fadeIn 1.5s forwards 5s;
             pointer-events: none;
+        }
+
+        /* --- TAP BUBBLE ANIMATION --- */
+        .tap-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(212, 163, 115, 0.4); /* primary color with transparency */
+            transform: scale(0);
+            animation: bubbleExpand 0.8s ease-out forwards;
+            pointer-events: none; /* So it doesn't block clicks */
+            z-index: 10000;
+        }
+
+        @keyframes bubbleExpand {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(15); opacity: 0; }
         }
 
         @keyframes fadeIn {
@@ -326,7 +342,7 @@
             border: 1px solid var(--primary-color);
             color: var(--accent-color);
             cursor: pointer;
-            display: none;
+            display: none; 
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -400,7 +416,7 @@
             <div class="envelope-body"></div>
         </div>
 
-        <div class="swipe-text">Swipe up or tap to open</div>
+        <div class="swipe-text">Tap anywhere to open</div>
     </div>
 
     <div id="main-content">
@@ -491,19 +507,18 @@
 
             // --- Function to handle opening the invitation ---
             function openInvitation() {
-                // 1. Play the romantic music immediately
+                // Play the romantic music immediately
                 weddingMusic.play().catch(error => {
                     console.log("Audio couldn't play automatically:", error);
                 });
 
-                // 2. Fade out splash screen
+                // Fade out splash screen
                 splashScreen.style.opacity = '0';
                 
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
                     mainContent.style.display = 'block';
                     
-                    // Reveals the play/pause button!
                     musicToggle.style.display = 'flex'; 
                     
                     void mainContent.offsetWidth; // Trigger reflow
@@ -511,23 +526,35 @@
                 }, 1000);
             }
 
-            // --- 1. Detect Swipe Up on Mobile ---
-            let startY = 0;
-            splashScreen.addEventListener("touchstart", (e) => {
-                startY = e.touches[0].clientY;
+            // --- NEW: Single Tap & Bubble Effect ---
+            splashScreen.addEventListener("click", function handleTap(e) {
+                // 1. Create the expanding bubble element
+                const bubble = document.createElement("div");
+                bubble.classList.add("tap-bubble");
+
+                // Set its starting size and center it precisely where the user tapped
+                const size = 50;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${e.clientX - (size / 2)}px`;
+                bubble.style.top = `${e.clientY - (size / 2)}px`;
+
+                // Add the bubble to the splash screen
+                document.body.appendChild(bubble);
+
+                // 2. Open the invitation immediately (This unlocks audio safely!)
+                openInvitation();
+
+                // Remove the event listener so they can't spam tap it while it's fading
+                splashScreen.removeEventListener("click", handleTap);
+
+                // Clean up the bubble HTML element after it finishes expanding
+                setTimeout(() => {
+                    bubble.remove();
+                }, 800);
             });
 
-            splashScreen.addEventListener("touchend", (e) => {
-                let endY = e.changedTouches[0].clientY;
-                if (startY - endY > 30) {
-                    openInvitation();
-                }
-            });
-
-            // --- 2. Detect Click/Tap (Fallback for Desktop or simple tapping) ---
-            splashScreen.addEventListener("click", openInvitation);
-
-            // --- 3. Countdown Timer Logic ---
+            // --- Countdown Timer Logic ---
             const countDownDate = new Date("Jul 31, 2026 00:00:00").getTime();
             const x = setInterval(function() {
                 const now = new Date().getTime();
