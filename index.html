@@ -285,7 +285,37 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
+/* --- MUSIC TOGGLE BUTTON --- */
+        #music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(250, 237, 205, 0.8);
+            border: 1px solid var(--primary-color);
+            color: var(--accent-color);
+            cursor: pointer;
+            display: none; /* Hidden until splash screen finishes */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
+        #music-toggle:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        #music-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
         /* Responsive Design */
         @media (max-width: 600px) {
             .header h1 {
@@ -304,6 +334,12 @@
             .countdown-number {
                 font-size: 2rem;
             }
+            #music-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
         }
     </style>
 </head>
@@ -312,7 +348,14 @@
     <audio id="wedding-music" loop>
         <source src="weddingMusic.mp3" type="audio/mpeg">
     </audio>
-
+    <button id="music-toggle" aria-label="Toggle Music">
+        <svg id="icon-pause" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+        <svg id="icon-play" style="display: none;" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </button>
     <div id="splash-screen">
         <div class="splash-message pinyon">A journey of love begins...</div>
         
@@ -373,7 +416,29 @@
             const splashScreen = document.getElementById("splash-screen");
             const mainContent = document.getElementById("main-content");
             const weddingMusic = document.getElementById("wedding-music");
+            const musicToggle = document.getElementById("music-toggle");
+            const iconPlay = document.getElementById("icon-play");
+            const iconPause = document.getElementById("icon-pause");
 
+            // --- Keeps icons in sync with actual audio state ---
+            weddingMusic.addEventListener('play', () => {
+                iconPlay.style.display = "none";
+                iconPause.style.display = "block";
+            });
+
+            weddingMusic.addEventListener('pause', () => {
+                iconPause.style.display = "none";
+                iconPlay.style.display = "block";
+            });
+
+            // --- Button Click Action ---
+            musicToggle.addEventListener('click', () => {
+                if (weddingMusic.paused) {
+                    weddingMusic.play();
+                } else {
+                    weddingMusic.pause();
+                }
+            });
             // --- Pauses music if guest switches to another app ---
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden) {
@@ -443,6 +508,7 @@
                 }
             }, 1000);
         });
+        
     </script>
 </body>
 </html>
