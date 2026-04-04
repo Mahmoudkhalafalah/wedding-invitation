@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahmoud & Reham - Wedding Invitation</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <audio id="wedding-music" loop>
@@ -19,16 +27,16 @@
 
     <button id="music-toggle" aria-label="Toggle Music">
         <svg id="icon-pause" viewBox="0 0 24 24">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
         </svg>
         <svg id="icon-play" style="display: none;" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
+            <path d="M8 5v14l11-7z" />
         </svg>
     </button>
 
     <div id="splash-screen">
         <div class="splash-message pinyon">A journey of love begins...</div>
-        
+
         <div class="envelope-wrapper">
             <div class="envelope-letter">
                 <div class="letter-heart">♥</div>
@@ -41,6 +49,7 @@
     </div>
 
     <div id="main-content">
+
         <div class="header">
             <p>Together with their families</p>
             <div class="fine-decoration"></div>
@@ -56,7 +65,8 @@
                 <strong>Villa Rihana</strong><br>
                 <span class="venue-hall">Vienna Hall</span>
             </div>
-            <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link">View Map Location</a>
+            <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link">View Map
+                Location</a>
         </div>
 
         <div class="countdown-section">
@@ -81,11 +91,150 @@
             </div>
             <div id="countdown-expired">Today is the Day!</div>
         </div>
-        
+
+        <div class="story-wrapper">
+            <div class="story-header-hint pinyon">Scroll to unfold our journey...</div>
+            <div class="story-container" id="story-container">
+
+                <div id="canvas-container"></div>
+
+                <div class="story-track">
+
+                    <div class="story-panel">
+                        <div class="milestone-content">
+                            <div class="svg-container">
+                                <svg viewBox="0 0 200 200" class="story-svg">
+                                    <g class="scene1-boy">
+                                        <circle cx="40" cy="90" r="15" fill="var(--primary-color)" />
+                                        <path d="M 25 120 Q 40 110 55 120 L 55 190 L 25 190 Z"
+                                            fill="var(--primary-color)" />
+                                    </g>
+                                    <g class="scene1-girl">
+                                        <circle cx="160" cy="95" r="13" fill="var(--accent-color)" />
+                                        <path d="M 140 190 L 150 120 Q 160 110 170 120 L 180 190 Z"
+                                            fill="var(--accent-color)" />
+                                    </g>
+                                    <path class="scene1-heart"
+                                        d="M100 60 A 10 10 0 0 0 90 70 A 10 10 0 0 0 100 85 A 10 10 0 0 0 110 70 A 10 10 0 0 0 100 60 Z"
+                                        fill="#D4A373" transform="scale(0)" />
+                                </svg>
+                            </div>
+                            <h3>Our First Meeting</h3>
+                            <p>Two separate paths suddenly aligned, and a beautiful connection began.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-panel">
+                        <div class="milestone-content">
+                            <div class="svg-container">
+                                <svg viewBox="0 0 200 200" class="story-svg">
+                                    <g class="scene2-boy">
+                                        <circle cx="60" cy="90" r="15" fill="var(--primary-color)" />
+                                        <path d="M 45 120 Q 60 110 75 120 L 75 190 L 45 190 Z"
+                                            fill="var(--primary-color)" />
+                                    </g>
+                                    <g class="scene2-father">
+                                        <circle cx="140" cy="85" r="15" fill="var(--text-color)" />
+                                        <path d="M 125 115 Q 140 105 155 115 L 155 190 L 125 190 Z"
+                                            fill="var(--text-color)" />
+                                    </g>
+                                    <path class="scene2-handshake" d="M 70 140 Q 100 130 130 140" fill="none"
+                                        stroke="var(--accent-color)" stroke-width="8" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <h3>Meeting Her Father</h3>
+                            <p>A day of nervousness, respect, and the beginning of a lifelong bond.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-panel">
+                        <div class="milestone-content">
+                            <div class="svg-container">
+                                <svg viewBox="0 0 200 200" class="story-svg">
+                                    <rect x="50" y="160" width="100" height="15" rx="5" fill="var(--primary-color)" />
+                                    <g class="scene3-fam-left">
+                                        <circle cx="30" cy="110" r="12" fill="var(--primary-color)" />
+                                        <path d="M 15 140 Q 30 130 45 140 L 45 190 L 15 190 Z"
+                                            fill="var(--primary-color)" />
+                                        <circle cx="60" cy="120" r="10" fill="var(--primary-color)" />
+                                        <path d="M 50 145 Q 60 135 70 145 L 70 160 L 50 160 Z"
+                                            fill="var(--primary-color)" />
+                                    </g>
+                                    <g class="scene3-fam-right">
+                                        <circle cx="170" cy="110" r="12" fill="var(--accent-color)" />
+                                        <path d="M 155 140 Q 170 130 185 140 L 185 190 L 155 190 Z"
+                                            fill="var(--accent-color)" />
+                                        <circle cx="140" cy="120" r="10" fill="var(--accent-color)" />
+                                        <path d="M 130 145 Q 140 135 150 145 L 150 160 L 130 160 Z"
+                                            fill="var(--accent-color)" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3>Our Families Meeting</h3>
+                            <p>Two homes blending into one big, joyful family over shared laughter and warmth.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-panel">
+                        <div class="milestone-content">
+                            <div class="svg-container">
+                                <svg viewBox="0 0 200 200" class="story-svg">
+                                    <g class="scene4-girl">
+                                        <circle cx="130" cy="95" r="13" fill="var(--accent-color)" />
+                                        <path d="M 110 190 L 120 120 Q 130 110 140 120 L 150 190 Z"
+                                            fill="var(--accent-color)" />
+                                    </g>
+                                    <g class="scene4-boy">
+                                        <circle cx="60" cy="110" r="15" fill="var(--primary-color)" />
+                                        <path d="M 45 140 Q 60 130 75 140 L 75 190 L 45 190 Z"
+                                            fill="var(--primary-color)" />
+                                    </g>
+                                    <g class="scene4-ring" opacity="0">
+                                        <circle cx="95" cy="110" r="6" fill="none" stroke="#D4A373" stroke-width="2" />
+                                        <polygon points="92,104 98,104 95,98" fill="#A98467" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3>Our Engagement</h3>
+                            <p>A promise made, a ring slipped on, and a "Yes" that echoed in our hearts.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-panel">
+                        <div class="milestone-content">
+                            <div class="svg-container">
+                                <svg viewBox="0 0 200 200" class="story-svg">
+                                    <path class="scene5-arch" d="M 30 190 V 60 Q 100 10 170 60 V 190" fill="none"
+                                        stroke="var(--primary-color)" stroke-width="6" stroke-dasharray="400"
+                                        stroke-dashoffset="400" />
+
+                                    <g class="scene5-couple" opacity="0" transform="translate(0, 20)">
+                                        <circle cx="85" cy="100" r="14" fill="var(--text-color)" />
+                                        <path d="M 70 130 Q 85 120 100 130 L 100 190 L 70 190 Z"
+                                            fill="var(--text-color)" />
+                                        <circle cx="115" cy="105" r="12" fill="var(--accent-color)" />
+                                        <path d="M 100 190 L 105 125 Q 115 115 125 125 L 130 190 Z"
+                                            fill="var(--accent-color)" />
+                                        <path d="M 95 150 Q 100 155 105 150" fill="none" stroke="var(--primary-color)"
+                                            stroke-width="4" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3>The Wedding</h3>
+                            <p>Insha'Allah, the day two souls become one forever.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <div class="fine-decoration" style="margin-top: 50px;"></div>
-        <p style="font-style: italic; font-size: 0.9rem; margin-top: 20px;">We can't wait to celebrate with you!</p>
+        <p style="font-style: italic; font-size: 0.9rem; margin-top: 20px; padding-bottom: 50px;">We can't wait to
+            celebrate with you!</p>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
