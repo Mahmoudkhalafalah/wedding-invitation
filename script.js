@@ -141,7 +141,26 @@ document.addEventListener("DOMContentLoaded", () => {
             if (index === 0) {
                 tl.fromTo(".scene1-boy", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
                     .fromTo(".scene1-girl", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
-                    .to(".scene1-heart", { scale: 1, transformOrigin: "center", duration: 0.8, ease: "back.out(1.7)" }, 1.5);
+                    .to(".scene1-heart", {
+                        y: -80,
+                        x: 0,        // start above
+                        scale: 0.6,
+                        opacity: 0,
+                    }, 1.3)
+
+                    .to(".scene1-heart", {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1.1,
+                        duration: 2,
+                        ease: "power2.in"
+                    }, 1.3)
+
+                    .to(".scene1-heart", {
+                        scale: 1,
+                        duration: 1,
+                        ease: "back.out(1.7)" // soft bounce settle
+                    }, 2.3);
             }
             else if (index === 1) {
                 tl.fromTo(".scene2-boy", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, 0.5)
@@ -252,10 +271,10 @@ document.addEventListener("DOMContentLoaded", () => {
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
         const material = new THREE.PointsMaterial({
-            color: 0xA98467,
-            size: 0.45,
+            color: 0xD4A373, // Lighter golden/sand color (var(--primary-color))
+            size: 0.40,      // Slightly scaled down
             transparent: true,
-            opacity: 0.85
+            opacity: 0.45    // Lower opacity makes it a subtle, elegant texture
         });
 
         const particles = new THREE.Points(geometry, material);
