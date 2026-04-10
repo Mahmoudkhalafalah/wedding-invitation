@@ -20,8 +20,18 @@
 </head>
 
 <body>
-
-    <audio id="wedding-music" loop>
+    <div class="custom-cursor"></div>
+    <div id="initials-preloader">
+        <svg viewBox="0 0 200 100" class="initials-svg">
+            <path class="draw-line" d="M 30,80 L 30,30 L 50,60 L 70,30 L 70,80" fill="none"
+                stroke="var(--primary-color)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <path class="draw-line" d="M 105,75 C 120,60 90,40 95,30 C 100,20 115,25 110,40 C 105,55 85,75 115,80"
+                fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-linecap="round" />
+            <path class="draw-line" d="M 135,80 L 135,30 C 160,30 160,55 135,55 L 160,80" fill="none"
+                stroke="var(--primary-color)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </div>
+    <audio id="wedding-music" loop preload="auto">
         <source src="weddingMusic.mp3" type="audio/mpeg">
     </audio>
 
@@ -34,7 +44,7 @@
         </svg>
     </button>
 
-    <div id="splash-screen">
+    <div id="splash-screen" role="button" tabindex="0" aria-label="Open wedding invitation">
         <div class="splash-message pinyon">A journey of love begins...</div>
 
         <div class="envelope-wrapper">
@@ -69,6 +79,17 @@
             </div>
             <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link">View Map
                 Location</a>
+        </div>
+        <div class="polaroid-gallery">
+            <div class="polaroid p-left">
+                <div class="photo-placeholder" style="background-image: url('begin.jpeg');"></div>
+                <div class="caption pinyon">The beginning...</div>
+            </div>
+
+            <div class="polaroid p-right">
+                <div class="photo-placeholder" style="background-image: url('end.jpeg');"></div>
+                <div class="caption pinyon">Always smiling</div>
+            </div>
         </div>
         <div class="story-wrapper">
             <div class="story-header-hint pinyon">Scroll to unfold our journey...</div>
@@ -211,7 +232,7 @@
                 </div>
             </div>
         </div>
-        <div class="countdown-section">
+        <div class="countdown-section" area-hidden="true">
             <h2>Countdown to Forever</h2>
             <div class="countdown-container" id="countdown-timer">
                 <div class="countdown-box">

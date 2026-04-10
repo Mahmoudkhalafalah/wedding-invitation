@@ -9,6 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let userManuallyPaused = false;
 
+    const preloader = document.getElementById("initials-preloader");
+
+    // Hide splash screen content initially to avoid overlap
+    splashScreen.style.opacity = '0';
+    splashScreen.style.pointerEvents = 'none';
+
+    // Wait for the SVG drawing animation, then fade to the envelope
+    setTimeout(() => {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            splashScreen.style.opacity = '1';
+            splashScreen.style.pointerEvents = 'auto'; // allow clicking the envelope now
+        }, 1000);
+    }, 2800);
 
     weddingMusic.addEventListener('play', () => {
         iconPlay.style.display = "none";
@@ -52,12 +67,20 @@ document.addEventListener("DOMContentLoaded", () => {
             void mainContent.offsetWidth;
             mainContent.style.opacity = '1';
 
-
+            // --- ADD THIS GSAP ANIMATION ---
+            gsap.to(".header h1", {
+                y: 0,
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                delay: 0.2
+            });
             initStoryScroll();
         }, 1000);
     }
 
-    splashScreen.addEventListener("click", function handleTap(e) {
+    splashScreen.addEventListener("click" || "keydown", function handleTap(e) {
+        if (e.type === "keydown" && (e.key === "Enter" || e.key === " ")) return;
         const bubble = document.createElement("div");
         bubble.classList.add("tap-bubble");
         const size = 50;
@@ -70,11 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
         openInvitation();
         splashScreen.removeEventListener("click", handleTap);
 
-        setTimeout(() => { bubble.remove(); }, 800);
+        bubble.addEventListener("animationend", () => {
+            bubble.remove();
+        });
     });
 
 
-    const countDownDate = new Date("Jul 31, 2026 00:00:00").getTime();
+    const countDownDate = new Date("2026-07-31T00:00:00+03:00").getTime();
     const x = setInterval(function () {
         const now = new Date().getTime();
         const distance = countDownDate - now;
@@ -84,10 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
-        document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-        document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-        document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+        document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
         if (distance < 0) {
             clearInterval(x);
@@ -117,6 +142,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // --- COLOR THEME TRANSITION (DAY TO EVENING) - FIXED ---
+        // This triggers a smooth, independent animation only when reaching the final panel,
+        // avoiding muddy intermediate colors when the user stops scrolling.
+        ScrollTrigger.create({
+            trigger: panels[4], // The 5th panel (The Wedding)
+            containerAnimation: scrollTween,
+            start: "left 75%", // Triggers right before the panel is fully in view
+            onEnter: () => {
+                gsap.to(document.documentElement, {
+                    "--bg-color": "#231b15",
+                    "--text-color": "#faedcd",
+                    "--accent-color": "#e0c3a3",
+                    duration: 1.2, // Fast, clean transition
+                    ease: "power2.inOut"
+                });
+            },
+            onLeaveBack: () => {
+                // Instantly reverts to daytime if they scroll backwards to the Engagement
+                gsap.to(document.documentElement, {
+                    "--bg-color": "#fdf8f5",
+                    "--text-color": "#4a3f35",
+                    "--accent-color": "#a98467",
+                    duration: 1.2,
+                    ease: "power2.inOut"
+                });
+            }
+        });
         panels.forEach((panel, index) => {
             let text = panel.querySelectorAll("h3, p");
 
@@ -197,7 +249,8 @@ document.addEventListener("DOMContentLoaded", () => {
             camera.position.z = 65;
         }
 
-        const particleCount = 2500;
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 1000 : 2500;
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
 
@@ -338,7 +391,36 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 camera.position.z = 65;
             }
+            ScrollTrigger.refresh();
         });
     }
+    const cursor = document.querySelector('.custom-cursor');
+
+    // Check if device has a mouse
+    if (window.matchMedia("(pointer: fine)").matches) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover effect to interactive elements
+        const interactives = document.querySelectorAll('a, button, #splash-screen');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover-active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover-active'));
+        });
+    }
+
+    // --- POLAROID FLOATING ANIMATION ---
+    gsap.to(".polaroid", {
+        y: -15,
+        rotation: "+=2", // adds a slight wobble
+        duration: 3,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+        stagger: 0.5 // makes them float out of sync with each other
+    });
 });
+
 
