@@ -142,9 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // --- COLOR THEME TRANSITION (DAY TO EVENING) - FIXED ---
-        // This triggers a smooth, independent animation only when reaching the final panel,
-        // avoiding muddy intermediate colors when the user stops scrolling.
+
+
         ScrollTrigger.create({
             trigger: panels[4], // The 5th panel (The Wedding)
             containerAnimation: scrollTween,
@@ -179,6 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     start: "left center",
                     end: "right center",
                     toggleActions: "play reverse play reverse",
+                    onEnter: () => {
+                        if (navigator.vibrate) {
+                            navigator.vibrate(15); // A tiny, subtle 15-millisecond vibration
+                        }
+                    },
+                    onEnterBack: () => {
+                        if (navigator.vibrate) {
+                            navigator.vibrate(15);
+                        }
+                    }
                 }
             });
 
@@ -420,6 +429,12 @@ document.addEventListener("DOMContentLoaded", () => {
         repeat: -1,
         ease: "sine.inOut",
         stagger: 0.5 // makes them float out of sync with each other
+    });
+    window.addEventListener("scroll", () => {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        document.getElementById("scroll-progress").style.width = scrollPercent + "%";
     });
 });
 
