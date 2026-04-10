@@ -536,7 +536,7 @@ body {
 }
 
 /* --- RESPONSIVE --- */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .polaroid-gallery {
     gap: 0;
     margin: 40px auto;
