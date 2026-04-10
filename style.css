@@ -423,7 +423,7 @@ body {
 .story-container {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
 }
@@ -449,7 +449,7 @@ body {
 
 .story-panel {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -537,6 +537,7 @@ body {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+    
   /* --- BULLETPROOF MOBILE POLAROID STACK --- */
   .polaroid-gallery {
     display: block; /* Turns off flexbox */
@@ -605,9 +606,7 @@ body {
   }
 
   /* Gives the frosted glass cards a bit more breathing room on tablets */
-  .story-panel {
-    padding: 0 8%;
-  }
+
 }
 @media (pointer: fine) {
   /* Only apply on non-touch devices */
