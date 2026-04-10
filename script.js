@@ -1,4 +1,106 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // --- BILINGUAL SUPPORT (EN/AR) ---
+    const translations = {
+        en: {
+            splashMsg: "A journey of love begins...",
+            splashSwipe: "Tap anywhere to open",
+            header1: "Together with their families",
+            names: "Mahmoud <br> & <br> Reham",
+            header2: "Joyfully invite you to celebrate their wedding",
+            detailsH2: "When & Where",
+            dateText: "Friday, July 31st, 2026",
+            venueName: "<strong>Villa Rihana</strong><br><span class='venue-hall'>Vienna Hall</span>",
+            mapBtn: "View Map Location",
+            beginning: "The beginning...",
+            endCaption: "Always smiling",
+            storyHint: "Scroll to unfold our journey...",
+            s1Date: "March 1st, 2022",
+            s1Title: "Our First Meeting",
+            s1Desc: "Two separate paths suddenly aligned, and a beautiful connection began.",
+            s2Date: "September 26th, 2025",
+            s2Title: "Meeting Her Father",
+            s2Desc: "A day of nervousness, respect, and the beginning of a lifelong bond.",
+            s3Date: "October 17th, 2025",
+            s3Title: "Our Families Meeting",
+            s3Desc: "Two homes blending into one big, joyful family over shared laughter and warmth.",
+            s4Date: "November 1st, 2025",
+            s4Title: "Our Engagement",
+            s4Desc: "A promise made, a ring slipped on, and a 'Yes' that echoed in our hearts.",
+            s5Date: "July 31st, 2026",
+            s5Title: "The Wedding",
+            s5Desc: "Insha'Allah, the day two souls become one forever.",
+            cdH2: "Countdown to Forever",
+            cdDays: "Days",
+            cdHours: "Hours",
+            cdMinutes: "Minutes",
+            cdSeconds: "Seconds",
+            cdExpired: "Today is the Day!",
+            footerText: "We can't wait to celebrate with you!",
+            saveDate: "Save the Date"
+        },
+        ar: {
+            splashMsg: "...تبدأ رحلة الحب",
+            splashSwipe: "اضغط للفتح",
+            header1: "تتشرف عائلتانا بدعوتكم",
+            names: "محمود <br> و <br> ريهام",
+            header2: "لمشاركتنا فرحة زفافنا",
+            detailsH2: "الزمان والمكان",
+            dateText: "الجمعة، ٣١ يوليو ٢٠٢٦",
+            venueName: "<strong>فيلا ريحانة</strong><br><span class='venue-hall'>قاعة فيينا</span>",
+            mapBtn: "عرض الموقع على الخريطة",
+            beginning: "...البداية",
+            endCaption: "دائماً مبتسمين",
+            storyHint: "...اسحب لتكتشف قصتنا",
+            s1Date: "١ مارس ٢٠٢٢",
+            s1Title: "لقاؤنا الأول",
+            s1Desc: "طريقان منفصلان التقيا فجأة، وبدأ اتصال جميل.",
+            s2Date: "٢٦ سبتمبر ٢٠٢٥",
+            s2Title: "لقاء والدها",
+            s2Desc: "يوم مليء بالتوتر والاحترام، وبداية رابطة تدوم مدى الحياة.",
+            s3Date: "١٧ أكتوبر ٢٠٢٥",
+            s3Title: "لقاء العائلتين",
+            s3Desc: "عائلتان تندمجان لتصبحا عائلة واحدة مليئة بالدفء والضحكات.",
+            s4Date: "١ نوفمبر ٢٠٢٥",
+            s4Title: "خطوبتنا",
+            s4Desc: "وعد قُطع، وخاتم لُبس، و'نعم' ترددت في قلوبنا.",
+            s5Date: "٣١ يوليو ٢٠٢٦",
+            s5Title: "الزفاف",
+            s5Desc: "إن شاء الله، اليوم الذي تتحد فيه روحان إلى الأبد.",
+            cdH2: "العد التنازلي",
+            cdDays: "أيام",
+            cdHours: "ساعات",
+            cdMinutes: "دقائق",
+            cdSeconds: "ثواني",
+            cdExpired: "!اليوم هو المنتظر",
+            footerText: "!لا يسعنا الانتظار للاحتفال معكم",
+            saveDate: "احفظ التاريخ"
+        }
+    };
+
+    let currentLang = 'en';
+    const langToggle = document.getElementById('lang-toggle');
+
+    langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', currentLang);
+        langToggle.innerText = currentLang === 'en' ? 'عربي' : 'EN';
+        // Update all text elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[currentLang][key]) {
+                el.innerHTML = translations[currentLang][key]; // innerHTML so <br> tags work
+            }
+        });
+        if (currentLang === 'ar') {
+            document.body.classList.add('arabic-mode'); // Adds it for Arabic
+        } else {
+            document.body.classList.remove('arabic-mode'); // Removes it for English
+        }
+
+        // Trigger GSAP refresh because layout widths might change in RTL
+        setTimeout(() => ScrollTrigger.refresh(), 100);
+    });
 
     const splashScreen = document.getElementById("splash-screen");
     const mainContent = document.getElementById("main-content");
@@ -10,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let userManuallyPaused = false;
 
     const preloader = document.getElementById("initials-preloader");
+
 
     // Hide splash screen content initially to avoid overlap
     splashScreen.style.opacity = '0';

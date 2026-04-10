@@ -383,12 +383,6 @@ body {
   transition: all 0.3s ease;
 }
 
-#music-toggle:hover {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-  transform: scale(1.05);
-}
-
 #music-toggle svg {
   width: 20px;
   height: 20px;
@@ -537,7 +531,6 @@ body {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    
   /* --- BULLETPROOF MOBILE POLAROID STACK --- */
   .polaroid-gallery {
     display: block; /* Turns off flexbox */
@@ -606,7 +599,6 @@ body {
   }
 
   /* Gives the frosted glass cards a bit more breathing room on tablets */
-
 }
 @media (pointer: fine) {
   /* Only apply on non-touch devices */
@@ -764,4 +756,112 @@ body {
   /* Active state for mobile tapping */
   transform: scale(0.95);
   box-shadow: 0 5px 10px rgba(212, 163, 115, 0.2);
+}
+
+/* --- BILINGUAL & RTL STYLES --- */
+#lang-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(250, 237, 205, 0.8);
+  border: 1px solid var(--primary-color);
+  color: var(--accent-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+#lang-toggle, 
+#music-toggle {
+  background-color: var(--bg-color) !important;
+  color: var(--accent-color) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Keeps them slightly elevated */
+}
+
+#lang-toggle:hover, 
+#music-toggle:hover {
+  background-color: var(--accent-color) !important;
+  color: var(--bg-color) !important;
+}
+
+
+/* When Arabic is active, swap the fonts universally */
+html[dir="rtl"] body {
+  font-family: "Cairo", sans-serif;
+  letter-spacing: 0; /* Arabic cursive doesn't look good with wide letter spacing */
+}
+
+/* Replace the English Pinyon script with Arabic Amiri script */
+html[dir="rtl"] .pinyon {
+  font-family: "Amiri", serif;
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* Adjust button placement for Arabic (moves it to the left side) */
+html[dir="rtl"] #lang-toggle {
+  right: auto;
+  left: 20px;
+}
+
+html[dir="rtl"] #music-toggle {
+  right: auto;
+  left: 30px;
+}
+
+/* Adjust timeline hints and smaller text sizes for Arabic legibility */
+html[dir="rtl"] .story-header-hint {
+  font-size: 2.2rem;
+}
+
+html[dir="rtl"] .milestone-date {
+  letter-spacing: 1px;
+}
+
+/* 1. Force the horizontal scroll track to stay LTR so GSAP doesn't break */
+html[dir="rtl"] .story-track {
+  direction: ltr;
+}
+
+/* 2. Re-apply RTL only to the text content inside the glass cards */
+html[dir="rtl"] .milestone-content {
+  direction: rtl;
+}
+
+/* 3. Keep the countdown reading correctly from left to right (Days -> Seconds) 
+      Otherwise, Arabic flips it to (Seconds -> Days) */
+html[dir="rtl"] .countdown-container {
+  direction: ltr;
+}
+
+/* --- RTL BUG FIXES (GSAP & Layout) - UPDATED --- */
+
+/* 1. Force the ENTIRE story wrapper to stay LTR so the scroll starts at the 1st panel */
+html[dir="rtl"] .story-wrapper {
+  direction: ltr;
+}
+
+/* 2. Re-apply RTL only to the text content inside the glass cards */
+html[dir="rtl"] .milestone-content {
+  direction: rtl;
+  text-align: center; /* Keeps the text beautifully centered in the card */
+}
+
+/* 3. Keep the countdown reading correctly from left to right (Days -> Seconds) */
+html[dir="rtl"] .countdown-container {
+  direction: ltr;
+}
+
+body.arabic-mode .milestone-content p::first-letter {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  float: none; /* Stops it from jumping to the left */
+  line-height: inherit;
+  margin: 0;
+  text-shadow: none;
 }

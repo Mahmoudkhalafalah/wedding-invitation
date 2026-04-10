@@ -11,6 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -20,6 +23,7 @@
 </head>
 
 <body>
+    <button id="lang-toggle">عربي</button>
     <div class="custom-cursor"></div>
     <div id="scroll-progress"></div>
     <div id="initials-preloader">
@@ -46,7 +50,7 @@
     </button>
 
     <div id="splash-screen" role="button" tabindex="0" aria-label="Open wedding invitation">
-        <div class="splash-message pinyon">A journey of love begins...</div>
+        <div class="splash-message pinyon" data-i18n="splashMsg">A journey of love begins...</div>
 
         <div class="envelope-wrapper">
             <div class="envelope-letter">
@@ -56,44 +60,44 @@
             <div class="envelope-body"></div>
         </div>
 
-        <div class="swipe-text">Tap anywhere to open</div>
+        <div class="swipe-text" data-i18n="splashSwipe">Tap anywhere to open</div>
     </div>
 
     <div id="main-content">
 
         <div class="header">
-            <p>Together with their families</p>
+            <p data-i18n="header1">Together with their families</p>
             <div class="fine-decoration"></div>
-            <h1 class="pinyon">Mahmoud <br> & <br> Reham</h1>
+            <h1 class="pinyon" data-i18n="names">Mahmoud <br> & <br> Reham</h1>
             <div class="fine-decoration"></div>
-            <p>Joyfully invite you to celebrate their wedding</p>
+            <p data-i18n="header2">Joyfully invite you to celebrate their wedding</p>
         </div>
 
 
 
         <div class="details-section">
-            <h2>When & Where</h2>
-            <div class="date">Friday, July 31st, 2026</div>
-            <div class="venue">
+            <h2 data-i18n="detailsH2">When & Where</h2>
+            <div class="date" data-i18n="dateText">Friday, July 31st, 2026</div>
+            <div class="venue" data-i18n="venueName">
                 <strong>Villa Rihana</strong><br>
                 <span class="venue-hall">Vienna Hall</span>
             </div>
-            <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link">View Map
+            <a href="https://maps.app.goo.gl/7EY2PVes34okUD4m8?g_st=ac" target="_blank" class="venue-link" data-i18n="mapBtn">View Map
                 Location</a>
         </div>
         <div class="polaroid-gallery">
             <div class="polaroid p-left">
                 <div class="photo-placeholder" style="background-image: url('begin.jpeg');"></div>
-                <div class="caption pinyon">The beginning...</div>
+                <div class="caption pinyon" data-i18n="beginning">The beginning...</div>
             </div>
 
             <div class="polaroid p-right">
                 <div class="photo-placeholder" style="background-image: url('end.jpeg');"></div>
-                <div class="caption pinyon">Always smiling</div>
+                <div class="caption pinyon" data-i18n="endCaption">Always smiling</div>
             </div>
         </div>
         <div class="story-wrapper">
-            <div class="story-header-hint pinyon">Scroll to unfold our journey...</div>
+            <div class="story-header-hint pinyon" data-i18n="storyHint">Scroll to unfold our journey...</div>
             <div class="story-container" id="story-container">
 
                 <div id="canvas-container"></div>
@@ -102,7 +106,7 @@
 
                     <div class="story-panel">
                         <div class="milestone-content">
-                            <div class="milestone-date">March 1st, 2022</div>
+                            <div class="milestone-date" data-i18n="s1Date">March 1st, 2022</div>
                             <div class="svg-container">
                                 <svg viewBox="0 0 200 200" class="story-svg">
                                     <g class="scene1-boy">
@@ -120,14 +124,14 @@
                                         style="transform: scale(0); transform-origin: 100px 75px;" />
                                 </svg>
                             </div>
-                            <h3>Our First Meeting</h3>
-                            <p>Two separate paths suddenly aligned, and a beautiful connection began.</p>
+                            <h3 data-i18n="s1Title">Our First Meeting</h3>
+                            <p data-i18n="s1Desc">Two separate paths suddenly aligned, and a beautiful connection began.</p>
                         </div>
                     </div>
 
                     <div class="story-panel">
                         <div class="milestone-content">
-                            <div class="milestone-date">September 26th, 2025</div>
+                            <div class="milestone-date" data-i18n="s2Date">September 26th, 2025</div>
                             <div class="svg-container">
                                 <svg viewBox="0 0 200 200" class="story-svg">
                                     <g class="scene2-boy">
@@ -144,14 +148,14 @@
                                         stroke="var(--accent-color)" stroke-width="8" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <h3>Meeting Her Father</h3>
-                            <p>A day of nervousness, respect, and the beginning of a lifelong bond.</p>
+                            <h3 data-i18n="s2Title">Meeting Her Father</h3>
+                            <p data-i18n="s2Desc">A day of nervousness, respect, and the beginning of a lifelong bond.</p>
                         </div>
                     </div>
 
                     <div class="story-panel">
                         <div class="milestone-content">
-                            <div class="milestone-date">October 17th, 2025</div>
+                            <div class="milestone-date" data-i18n="s3Date">October 17th, 2025</div>
                             <div class="svg-container">
                                 <svg viewBox="0 0 200 200" class="story-svg">
                                     <rect x="50" y="160" width="100" height="15" rx="5" fill="var(--primary-color)" />
@@ -173,14 +177,14 @@
                                     </g>
                                 </svg>
                             </div>
-                            <h3>Our Families Meeting</h3>
-                            <p>Two homes blending into one big, joyful family over shared laughter and warmth.</p>
+                            <h3 data-i18n="s3Title">Our Families Meeting</h3>
+                            <p data-i18n="s3Desc">Two homes blending into one big, joyful family over shared laughter and warmth.</p>
                         </div>
                     </div>
 
                     <div class="story-panel">
                         <div class="milestone-content">
-                            <div class="milestone-date">November 1st, 2025</div>
+                            <div class="milestone-date" data-i18n="s4Date">November 1st, 2025</div>
                             <div class="svg-container">
                                 <svg viewBox="0 0 200 200" class="story-svg">
                                     <g class="scene4-girl">
@@ -199,14 +203,14 @@
                                     </g>
                                 </svg>
                             </div>
-                            <h3>Our Engagement</h3>
-                            <p>A promise made, a ring slipped on, and a "Yes" that echoed in our hearts.</p>
+                            <h3 data-i18n="s4Title">Our Engagement</h3>
+                            <p data-i18n="s4Desc">A promise made, a ring slipped on, and a "Yes" that echoed in our hearts.</p>
                         </div>
                     </div>
 
                     <div class="story-panel">
                         <div class="milestone-content">
-                            <div class="milestone-date">July 31st, 2026</div>
+                            <div class="milestone-date" data-i18n="s5Date">July 31st, 2026</div>
                             <div class="svg-container">
                                 <svg viewBox="0 0 200 200" class="story-svg">
                                     <path class="scene5-arch" d="M 30 190 V 60 Q 100 10 170 60 V 190" fill="none"
@@ -225,8 +229,8 @@
                                     </g>
                                 </svg>
                             </div>
-                            <h3>The Wedding</h3>
-                            <p>Insha'Allah, the day two souls become one forever.</p>
+                            <h3 data-i18n="s5Title">The Wedding</h3>
+                            <p data-i18n="s5Desc">Insha'Allah, the day two souls become one forever.</p>
                         </div>
                     </div>
 
@@ -234,27 +238,27 @@
             </div>
         </div>
         <div class="countdown-section" area-hidden="true">
-            <h2>Countdown to Forever</h2>
+            <h2 data-i18n="cdH2">Countdown to Forever</h2>
             <div class="countdown-container" id="countdown-timer">
                 <div class="countdown-box">
                     <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-label">Days</div>
+                    <div class="countdown-label" data-i18n="cdDays">Days</div>
                 </div>
                 <div class="countdown-box">
                     <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-label">Hours</div>
+                    <div class="countdown-label" data-i18n="cdHours">Hours</div>
                 </div>
                 <div class="countdown-box">
                     <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-label">Minutes</div>
+                    <div class="countdown-label" data-i18n="cdMinutes">Minutes</div>
                 </div>
                 <div class="countdown-box">
                     <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-label">Seconds</div>
+                    <div class="countdown-label" data-i18n="cdSeconds">Seconds</div>
                 </div>
             </div>
-            <div id="countdown-expired">Today is the Day!</div>
-            <a href="https://calndr.link/d/event/?service=google&start=2026-07-31T18:00:00Z&end=2026-07-31T23:59:00Z&title=Mahmoud%20%26%20Reham's%20Wedding&location=Villa%20Rihana%2C%20Vienna%20Hall"
+            <div id="countdown-expired" data-i18n="cdExpired">Today is the Day!</div>
+            <a data-i18n="saveDate" href="https://calndr.link/d/event/?service=google&start=2026-07-31T18:00:00Z&end=2026-07-31T23:59:00Z&title=Mahmoud%20%26%20Reham's%20Wedding&location=Villa%20Rihana%2C%20Vienna%20Hall"
                 target="_blank" class="calendar-btn">
                 <svg viewBox="0 0 24 24" width="20" height="20">
                     <path fill="currentColor"
@@ -267,7 +271,7 @@
 
 
         <div class="fine-decoration" style="margin-top: 50px;"></div>
-        <p style="font-style: italic; font-size: 0.9rem; margin-top: 20px; padding-bottom: 50px;">We can't wait to
+        <p  style="font-style: italic; font-size: 0.9rem; margin-top: 20px; padding-bottom: 50px;" data-i18n="footerText">We can't wait to
             celebrate with you!</p>
     </div>
 
