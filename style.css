@@ -12,6 +12,11 @@
   margin: 0;
   padding: 0;
 }
+html,
+body {
+  overflow-x: hidden !important;
+  max-width: 100%;
+}
 
 body {
   font-family: "Lora", serif;
@@ -587,6 +592,29 @@ body {
     width: 45px;
     height: 45px;
   }
+  #lang-toggle {
+    top: 15px;
+    right: 15px !important; /* Pulls it safely inside the screen */
+    padding: 6px 12px; /* Slightly smaller for mobile */
+    font-size: 0.9rem;
+  }
+
+  /* When Arabic mode is active, pin it safely to the left */
+  body.arabic-mode #lang-toggle {
+    right: auto !important;
+    left: 15px !important;
+  }
+
+  /* Keep the music toggle perfectly aligned as well */
+  #music-toggle {
+    bottom: 15px;
+    right: 15px !important;
+  }
+
+  body.arabic-mode #music-toggle {
+    right: auto !important;
+    left: 15px !important;
+  }
 }
 /* --- TABLET RESPONSIVE (iPads & Medium Screens) --- */
 @media (max-width: 900px) {
@@ -775,19 +803,18 @@ body {
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 }
-#lang-toggle, 
+#lang-toggle,
 #music-toggle {
   background-color: var(--bg-color) !important;
   color: var(--accent-color) !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Keeps them slightly elevated */
 }
 
-#lang-toggle:hover, 
+#lang-toggle:hover,
 #music-toggle:hover {
   background-color: var(--accent-color) !important;
   color: var(--bg-color) !important;
 }
-
 
 /* When Arabic is active, swap the fonts universally */
 html[dir="rtl"] body {
