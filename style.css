@@ -537,25 +537,35 @@ body {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+  /* --- BULLETPROOF MOBILE POLAROID STACK --- */
   .polaroid-gallery {
-    gap: 0;
-    margin: 40px auto;
+    display: block; /* Turns off flexbox */
+    position: relative;
+    height: 380px; /* Creates a fixed box to hold the floating stack */
+    margin: 20px auto 60px auto;
+    width: 100%;
   }
 
   .polaroid {
+    position: absolute;
+    left: 50%; /* Start them in the exact middle of the screen */
     width: 220px;
     padding: 10px 10px 30px 10px;
   }
 
   .p-left {
-    transform: rotate(-6deg) translateX(20px);
+    top: 0;
+    margin-left: -190px; /* Pulls it slightly to the left */
     z-index: 1;
+    transform: rotate(5deg); /* Initial tilt */
   }
 
   .p-right {
-    transform: rotate(8deg) translateX(-20px) translateY(-30px);
+    top: 60px; /* Slides it down over the first photo */
+    margin-left: 20px; /* Slides it slightly to the right */
     z-index: 2;
-    box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow to show overlapping */
+    transform: rotate(20deg); /* Initial tilt */
+    box-shadow: -5px 15px 30px rgba(74, 63, 53, 0.2); /* Deeper shadow for the top card */
   }
 
   .polaroid .caption {

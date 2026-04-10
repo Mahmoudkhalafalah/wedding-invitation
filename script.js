@@ -422,13 +422,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- POLAROID FLOATING ANIMATION ---
     gsap.to(".polaroid", {
-        y: -15,
-        rotation: "+=2", // adds a slight wobble
+        y: "-=15", // Moves 15px up from wherever it currently is
+        rotation: "+=5", // Wobbles 3 degrees from its current tilt
         duration: 3,
         yoyo: true,
         repeat: -1,
         ease: "sine.inOut",
-        stagger: 0.5 // makes them float out of sync with each other
+        stagger: 0.5
     });
     window.addEventListener("scroll", () => {
         const scrollTop = document.documentElement.scrollTop;
