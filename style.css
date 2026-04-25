@@ -543,7 +543,8 @@ body {
 
   /* Target the image inside to keep it proportional */
   .polaroid .photo-placeholder {
-    height: 160px; /* Reduced from 250px so the photo doesn't stretch out the bottom */
+    height: auto; /* Fixes the squished/cropped mobile bug */
+    aspect-ratio: 3 / 4; /* Reduced from 250px so the photo doesn't stretch out the bottom */
   }
 
   .p-left {
@@ -685,10 +686,12 @@ body {
 
 .photo-placeholder {
   width: 100%;
-  height: 250px;
-  background-color: var(--secondary-color); /* Fallback color */
+  height: auto;
+  aspect-ratio: 3 / 4; /* Use 3/4 for tall Portrait photos, 4/3 for wide Landscape, or 1/1 for Square */
+
+  background-color: var(--secondary-color);
   background-size: cover;
-  background-position: center;
+  background-position: top center;
 }
 
 .polaroid .caption {
