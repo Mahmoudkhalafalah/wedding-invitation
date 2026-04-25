@@ -551,6 +551,7 @@ body {
     margin-left: -130px; /* Pulled in closer to the center */
     z-index: 1;
     transform: rotate(5deg);
+    height: fit-content;
   }
 
   .p-right {
@@ -699,6 +700,7 @@ body {
 
 .p-left {
   transform: rotate(-4deg);
+  height: fit-content;
 }
 
 .p-right {
