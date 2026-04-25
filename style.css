@@ -476,17 +476,6 @@ body {
   box-shadow: 0 10px 30px rgba(74, 63, 53, 0.05); /* Very soft shadow */
 }
 
-.milestone-content p::first-letter {
-  font-family: "Pinyon Script", cursive;
-  font-size: 3.5rem;
-  color: var(--primary-color);
-  float: left;
-  line-height: 0.8;
-  margin-right: 8px;
-  margin-top: 5px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
-}
-
 .milestone-date {
   font-size: 0.9rem;
   color: var(--primary-color);
@@ -538,38 +527,45 @@ body {
 @media (max-width: 768px) {
   /* --- BULLETPROOF MOBILE POLAROID STACK --- */
   .polaroid-gallery {
-    display: block; /* Turns off flexbox */
+    display: block;
     position: relative;
-    height: 380px; /* Creates a fixed box to hold the floating stack */
-    margin: 20px auto 60px auto;
+    height: 300px; /* Reduced container height since the frames are smaller */
+    margin: 20px auto 40px auto;
     width: 100%;
   }
 
   .polaroid {
     position: absolute;
-    left: 50%; /* Start them in the exact middle of the screen */
-    width: 220px;
-    padding: 10px 10px 30px 10px;
+    left: 50%;
+    width: 160px; /* Smaller frame width */
+    padding: 8px 8px 24px 8px; /* Slightly thinner white borders to match */
+  }
+
+  /* Target the image inside to keep it proportional */
+  .polaroid .photo-placeholder {
+    height: 160px; /* Reduced from 250px so the photo doesn't stretch out the bottom */
   }
 
   .p-left {
     top: 0;
-    margin-left: -190px; /* Pulls it slightly to the left */
+    margin-left: -130px; /* Pulled in closer to the center */
     z-index: 1;
-    transform: rotate(5deg); /* Initial tilt */
+    transform: rotate(5deg);
   }
 
   .p-right {
-    top: 60px; /* Slides it down over the first photo */
-    margin-left: 20px; /* Slides it slightly to the right */
+    top: 40px; /* Less vertical overlap gap since the images are smaller */
+    margin-left: -10px; /* Adjusted to overlap the first photo nicely */
     z-index: 2;
-    transform: rotate(20deg); /* Initial tilt */
-    box-shadow: -5px 15px 30px rgba(74, 63, 53, 0.2); /* Deeper shadow for the top card */
+    transform: rotate(20deg);
+    box-shadow: -5px 15px 30px rgba(74, 63, 53, 0.2);
   }
 
   .polaroid .caption {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Scaled down the font size to fit the smaller card */
+    margin-top: 10px;
   }
+
   .header h1 {
     font-size: 4rem;
   }
@@ -881,14 +877,4 @@ html[dir="rtl"] .milestone-content {
 /* 3. Keep the countdown reading correctly from left to right (Days -> Seconds) */
 html[dir="rtl"] .countdown-container {
   direction: ltr;
-}
-
-body.arabic-mode .milestone-content p::first-letter {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  float: none; /* Stops it from jumping to the left */
-  line-height: inherit;
-  margin: 0;
-  text-shadow: none;
 }
