@@ -541,7 +541,7 @@ img{
   .polaroid {
     position: relative; /* Replaces absolute positioning */
     left: auto;
-    width: 42vw; /* Uses viewport width so they automatically shrink on very small screens */
+    width: 70vw; /* Uses viewport width so they automatically shrink on very small screens */
     max-width: 160px;
     padding: 8px 8px 24px 8px;
   }
