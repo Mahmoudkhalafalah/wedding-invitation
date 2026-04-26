@@ -542,7 +542,7 @@ img{
     position: relative; /* Replaces absolute positioning */
     left: auto;
     width: 70vw; /* Uses viewport width so they automatically shrink on very small screens */
-    max-width: 160px;
+    /*max-width: 100%;*/
     padding: 8px 8px 24px 8px;
   }
 
