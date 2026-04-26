@@ -341,7 +341,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     .fromTo(".scene4-ring", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.5);
             }
             else if (index === 4) {
-                tl.to(".scene5-arch", { strokeDashoffset: 0, duration: 2, ease: "power2.inOut" }, 0.2)
+                // Dynamically calculate the exact mathematical length of the path
+                const archPath = document.querySelector(".scene5-arch");
+                const pathLength = archPath.getTotalLength() + 2; // +2 adds a tiny safety buffer
+
+                // Force GSAP to start exactly at the dynamic length, then animate to 0
+                tl.fromTo(".scene5-arch", 
+                        { strokeDasharray: pathLength, strokeDashoffset: pathLength },
+                        { strokeDashoffset: 0, duration: 2, ease: "power2.inOut" }, 0.2)
                     .fromTo(".scene5-couple", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 1.5);
             }
         });
