@@ -541,8 +541,8 @@ img{
   .polaroid {
     position: relative; /* Replaces absolute positioning */
     left: auto;
-    width: 70vw; /* Uses viewport width so they automatically shrink on very small screens */
-    /*max-width: 100%;*/
+    width: 40vw; /* Uses viewport width so they automatically shrink on very small screens */
+    max-width: 150px;
     padding: 8px 8px 24px 8px;
   }
 
@@ -556,7 +556,7 @@ img{
     margin: 0;
     margin-right: -15px; /* Creates the overlapping effect */
     z-index: 1;
-    //transform: rotate(-6deg);
+    transform: rotate(-6deg);
     height: fit-content;
   }
 
@@ -708,7 +708,7 @@ img{
 }
 
 .p-left {
-  //transform: rotate(-4deg);
+  transform: rotate(-4deg);
   height: fit-content;
 }
 
