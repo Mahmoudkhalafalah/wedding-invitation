@@ -28,6 +28,10 @@ body {
   padding-right: env(safe-area-inset-right);
 }
 
+img{
+  width: 100%;
+  display: block;
+}
 .pinyon {
   font-family: "Pinyon Script", cursive;
   font-weight: 400;
@@ -525,46 +529,48 @@ body {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  /* --- BULLETPROOF MOBILE POLAROID STACK --- */
   .polaroid-gallery {
-    display: block;
-    position: relative;
-    height: 300px; /* Reduced container height since the frames are smaller */
-    margin: 20px auto 40px auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto; /* Allows the container to grow and prevents overlapping the next section */
+    margin: 20px auto 60px auto;
     width: 100%;
   }
 
   .polaroid {
-    position: absolute;
-    left: 50%;
-    width: 160px; /* Smaller frame width */
-    padding: 8px 8px 24px 8px; /* Slightly thinner white borders to match */
+    position: relative; /* Replaces absolute positioning */
+    left: auto;
+    width: 42vw; /* Uses viewport width so they automatically shrink on very small screens */
+    max-width: 160px;
+    padding: 8px 8px 24px 8px;
   }
 
   /* Target the image inside to keep it proportional */
   .polaroid .photo-placeholder {
-    height: auto; /* Fixes the squished/cropped mobile bug */
-    aspect-ratio: 3 / 4; /* Reduced from 250px so the photo doesn't stretch out the bottom */
+    height: auto; 
+    aspect-ratio: 3 / 4; 
   }
 
   .p-left {
-    top: 0;
-    margin-left: -130px; /* Pulled in closer to the center */
+    margin: 0;
+    margin-right: -15px; /* Creates the overlapping effect */
     z-index: 1;
-    transform: rotate(5deg);
+    transform: rotate(-6deg);
     height: fit-content;
   }
 
   .p-right {
-    top: 40px; /* Less vertical overlap gap since the images are smaller */
-    margin-left: -10px; /* Adjusted to overlap the first photo nicely */
+    margin: 0;
+    margin-top: 40px; /* Pushes the right photo down for the staggered look */
+    margin-left: -15px; /* Creates the overlapping effect */
     z-index: 2;
-    transform: rotate(20deg);
+    transform: rotate(8deg);
     box-shadow: -5px 15px 30px rgba(74, 63, 53, 0.2);
   }
 
   .polaroid .caption {
-    font-size: 1.2rem; /* Scaled down the font size to fit the smaller card */
+    font-size: 1.2rem !important; /* Scaled down the font size to fit the smaller card */
     margin-top: 10px;
   }
 
