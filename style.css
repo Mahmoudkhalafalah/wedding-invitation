@@ -543,7 +543,7 @@ img{
     left: auto;
     width: 40vw; /* Uses viewport width so they automatically shrink on very small screens */
     max-width: 150px;
-    padding: 8px 8px 12px 8px;
+    padding: 4px 4px 8px 4px;
   }
 
   /* Target the image inside to keep it proportional */
