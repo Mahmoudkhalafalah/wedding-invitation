@@ -72,7 +72,8 @@ img {
   border: 2px solid var(--primary-color);
   border-radius: 5px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  animation: pulseEnvelope 1.5s infinite alternate 5s;
+  /* Delayed to 7.5s */
+  animation: pulseEnvelope 1.5s infinite alternate 7.5s; 
 }
 
 .envelope-flap {
@@ -86,7 +87,8 @@ img {
   border-top: 55px solid var(--primary-color);
   transform-origin: top;
   z-index: 2;
-  animation: openEnvelope 1s ease-in-out 1.5s forwards;
+  /* Delayed to 5s to wait for preloader */
+  animation: openEnvelope 1s ease-in-out 5s forwards; 
 }
 
 .envelope-body {
@@ -114,7 +116,8 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: pullLetter 1s ease-in-out 2.5s forwards;
+  /* Delayed to 6s so it pulls up after the flap opens */
+  animation: pullLetter 1s ease-in-out 6s forwards; 
 }
 
 .letter-heart {
@@ -130,7 +133,8 @@ img {
   text-transform: uppercase;
   letter-spacing: 3px;
   opacity: 0;
-  animation: fadeIn 1.5s forwards 5s;
+  /* Delayed to 7.5s */
+  animation: fadeIn 1.5s forwards 7.5s; 
   pointer-events: none;
 }
 
