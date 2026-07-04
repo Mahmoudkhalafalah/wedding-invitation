@@ -1,4 +1,3 @@
-/* --- GLOBAL VARIABLES --- */
 :root {
   --bg-color: #fdf8f5;
   --primary-color: #d4a373;
@@ -12,6 +11,7 @@
   margin: 0;
   padding: 0;
 }
+
 html,
 body {
   overflow-x: hidden !important;
@@ -28,16 +28,16 @@ body {
   padding-right: env(safe-area-inset-right);
 }
 
-img{
+img {
   width: 100%;
   display: block;
 }
+
 .pinyon {
   font-family: "Pinyon Script", cursive;
   font-weight: 400;
 }
 
-/* --- SPLASH SCREEN --- */
 #splash-screen {
   position: fixed;
   top: 0;
@@ -144,66 +144,36 @@ img{
   z-index: 10000;
 }
 
-/* --- ANIMATIONS --- */
 @keyframes heartbeat {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.3);
-  }
+  0% { transform: scale(1); }
+  100% { transform: scale(1.3); }
 }
 
 @keyframes bubbleExpand {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(15);
-    opacity: 0;
-  }
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(15); opacity: 0; }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes openEnvelope {
-  0% {
-    transform: rotateX(0deg);
-    z-index: 2;
-  }
-  100% {
-    transform: rotateX(180deg);
-    z-index: -1;
-  }
+  0% { transform: rotateX(0deg); z-index: 2; }
+  100% { transform: rotateX(180deg); z-index: -1; }
 }
 
 @keyframes pullLetter {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50px);
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50px); }
 }
 
 @keyframes pulseEnvelope {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.08);
-  }
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
 }
 
-/* --- MAIN CONTENT & STANDARD SECTIONS --- */
 #main-content {
   display: none;
   opacity: 0;
@@ -223,10 +193,10 @@ img{
   color: var(--accent-color);
   margin: 20px 0;
   line-height: 1.1;
-  /* Add this initial state */
   transform: translateY(100%);
   opacity: 0;
 }
+
 .header,
 .details-section,
 .countdown-section {
@@ -253,13 +223,6 @@ img{
   font-size: 1.2rem;
   background: var(--bg-color);
   padding: 0 10px;
-}
-
-.header h1 {
-  font-size: 5rem;
-  color: var(--accent-color);
-  margin: 20px 0;
-  line-height: 1.1;
 }
 
 .header p {
@@ -322,7 +285,6 @@ img{
   background-color: var(--primary-color);
 }
 
-/* --- COUNTDOWN --- */
 .countdown-section {
   margin: 60px auto;
 }
@@ -372,7 +334,6 @@ img{
   letter-spacing: 2px;
 }
 
-/* --- MUSIC TOGGLE --- */
 #music-toggle {
   position: fixed;
   bottom: 30px;
@@ -398,19 +359,15 @@ img{
   fill: currentColor;
 }
 
-/* --- OUR STORY (HORIZONTAL SCROLL & THREE.JS) --- */
 .story-wrapper {
   position: relative;
   width: 100vw;
-  margin-top: 20px;
+  margin-top: 80px;
   margin-left: calc(-50vw + 50%);
-  background-color: var(
-    --bg-color
-  ); /* Restored to match the rest of the website */
+  background-color: var(--bg-color);
   border-top: 1px solid var(--primary-color);
   border-bottom: 1px solid var(--primary-color);
   overflow: hidden;
-  margin-top: 80px;
 }
 
 .story-header-hint {
@@ -431,7 +388,6 @@ img{
   align-items: center;
 }
 
-/* THREE.JS CANVAS CONTAINER */
 #canvas-container {
   position: absolute;
   top: 0;
@@ -447,7 +403,7 @@ img{
   width: 500vw;
   height: 100%;
   position: relative;
-  z-index: 10; /* Ensures SVGs stay above the particles */
+  z-index: 10;
 }
 
 .story-panel {
@@ -463,21 +419,12 @@ img{
 .milestone-content {
   max-width: 600px;
   text-align: center;
-
-  /* --- THE FROSTED GLASS EFFECT --- */
-  background: rgba(
-    253,
-    248,
-    245,
-    0.24
-  ); /* Matches your var(--bg-color) but transparent */
-  backdrop-filter: blur(1px); /* Blurs the particles behind it */
-  -webkit-backdrop-filter: blur(1px); /* Safari support */
-
-  /* Spacing and borders to make it look like a floating glass card */
+  background: rgba(253, 248, 245, 0.24);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(74, 63, 53, 0.05); /* Very soft shadow */
+  box-shadow: 0 10px 30px rgba(74, 63, 53, 0.05);
 }
 
 .milestone-date {
@@ -491,7 +438,7 @@ img{
 
 .milestone-content h3 {
   font-size: 2.2rem;
-  color: var(--accent-color); /* Restored to your dark accent color */
+  color: var(--accent-color);
   margin-bottom: 15px;
   font-weight: 500;
   text-transform: uppercase;
@@ -500,10 +447,9 @@ img{
 
 .milestone-content p {
   font-size: 1.1rem;
-  color: var(--text-color); /* Restored to your dark text color */
+  color: var(--text-color);
 }
 
-/* --- SVG STYLING --- */
 .svg-container {
   width: 150px;
   height: 150px;
@@ -527,26 +473,24 @@ img{
   transform-origin: center;
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
   .polaroid-gallery {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: auto; /* Allows the container to grow and prevents overlapping the next section */
+    height: auto;
     margin: 20px auto 60px auto;
     width: 100%;
   }
 
   .polaroid {
-    position: relative; /* Replaces absolute positioning */
+    position: relative;
     left: auto;
-    width: 40vw; /* Uses viewport width so they automatically shrink on very small screens */
+    width: 40vw;
     max-width: 150px;
     padding: 4px 4px 8px 4px !important;
   }
 
-  /* Target the image inside to keep it proportional */
   .polaroid .photo-placeholder {
     height: auto; 
     aspect-ratio: 3 / 4; 
@@ -554,7 +498,7 @@ img{
 
   .p-left {
     margin: 0;
-    margin-right: -15px; /* Creates the overlapping effect */
+    margin-right: -15px;
     z-index: 1;
     transform: rotate(-6deg);
     height: fit-content;
@@ -562,15 +506,15 @@ img{
 
   .p-right {
     margin: 0;
-    margin-top: 40px; /* Pushes the right photo down for the staggered look */
-    margin-left: -15px; /* Creates the overlapping effect */
+    margin-top: 40px;
+    margin-left: -15px;
     z-index: 2;
     transform: rotate(8deg);
     box-shadow: -5px 15px 30px rgba(74, 63, 53, 0.2);
   }
 
   .polaroid .caption {
-    font-size: 1.2rem !important; /* Scaled down the font size to fit the smaller card */
+    font-size: 1.2rem !important;
     margin-top: 10px;
   }
 
@@ -598,18 +542,16 @@ img{
   }
   #lang-toggle {
     top: 15px;
-    right: 15px !important; /* Pulls it safely inside the screen */
-    padding: 6px 12px; /* Slightly smaller for mobile */
+    right: 15px !important;
+    padding: 6px 12px;
     font-size: 0.9rem;
   }
 
-  /* When Arabic mode is active, pin it safely to the left */
   body.arabic-mode #lang-toggle {
     right: auto !important;
     left: 15px !important;
   }
 
-  /* Keep the music toggle perfectly aligned as well */
   #music-toggle {
     bottom: 15px;
     right: 15px !important;
@@ -620,20 +562,18 @@ img{
     left: 15px !important;
   }
 }
-/* --- TABLET RESPONSIVE (iPads & Medium Screens) --- */
+
 @media (max-width: 900px) {
   .header h1 {
-    font-size: 4.5rem; /* Scaled down from 5rem */
+    font-size: 4.5rem;
   }
 
   .milestone-content h3 {
-    font-size: 1.8rem; /* Scaled down from 2.2rem */
+    font-size: 1.8rem;
   }
-
-  /* Gives the frosted glass cards a bit more breathing room on tablets */
 }
+
 @media (pointer: fine) {
-  /* Only apply on non-touch devices */
   body {
     cursor: none;
   }
@@ -641,7 +581,7 @@ img{
   a,
   button,
   #splash-screen {
-    cursor: none; /* Hide default pointer */
+    cursor: none;
   }
 
   .custom-cursor {
@@ -655,11 +595,7 @@ img{
     pointer-events: none;
     z-index: 10000;
     transform: translate(-50%, -50%);
-    transition:
-      width 0.3s ease,
-      height 0.3s ease,
-      background-color 0.3s ease,
-      border 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border 0.3s ease;
   }
 
   .custom-cursor.hover-active {
@@ -671,7 +607,6 @@ img{
   }
 }
 
-/* --- POLAROID GALLERY --- */
 .polaroid-gallery {
   display: flex;
   justify-content: center;
@@ -693,8 +628,7 @@ img{
 .photo-placeholder {
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4; /* Use 3/4 for tall Portrait photos, 4/3 for wide Landscape, or 1/1 for Square */
-
+  aspect-ratio: 3 / 4;
   background-color: var(--secondary-color);
   background-size: cover;
   background-position: top center;
@@ -714,10 +648,9 @@ img{
 
 .p-right {
   transform: rotate(5deg);
-  margin-top: 30px; /* Staggers them slightly */
+  margin-top: 30px;
 }
 
-/* --- INITIALS PRELOADER --- */
 #initials-preloader {
   position: fixed;
   top: 0;
@@ -744,11 +677,9 @@ img{
 }
 
 @keyframes drawInitials {
-  to {
-    stroke-dashoffset: 0;
-  }
+  to { stroke-dashoffset: 0; }
 }
-/* --- SCROLL PROGRESS BAR --- */
+
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -756,7 +687,7 @@ img{
   height: 3px;
   background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   width: 0%;
-  z-index: 10001; /* Stays above everything */
+  z-index: 10001;
   box-shadow: 0 0 10px rgba(212, 163, 115, 0.5);
   border-radius: 0 2px 2px 0;
 }
@@ -768,11 +699,7 @@ img{
   gap: 10px;
   margin-top: 30px;
   padding: 15px 30px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--accent-color)
-  );
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   color: var(--bg-color);
   text-decoration: none;
   font-size: 1.1rem;
@@ -781,19 +708,15 @@ img{
   letter-spacing: 2px;
   border-radius: 30px;
   box-shadow: 0 10px 20px rgba(212, 163, 115, 0.3);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .calendar-btn:active {
-  /* Active state for mobile tapping */
   transform: scale(0.95);
   box-shadow: 0 5px 10px rgba(212, 163, 115, 0.2);
 }
 
-/* --- BILINGUAL & RTL STYLES --- */
 #lang-toggle {
   position: fixed;
   top: 20px;
@@ -810,11 +733,12 @@ img{
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 }
+
 #lang-toggle,
 #music-toggle {
   background-color: var(--bg-color) !important;
   color: var(--accent-color) !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Keeps them slightly elevated */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 #lang-toggle:hover,
@@ -823,20 +747,17 @@ img{
   color: var(--bg-color) !important;
 }
 
-/* When Arabic is active, swap the fonts universally */
 html[dir="rtl"] body {
   font-family: "Cairo", sans-serif;
-  letter-spacing: 0; /* Arabic cursive doesn't look good with wide letter spacing */
+  letter-spacing: 0;
 }
 
-/* Replace the English Pinyon script with Arabic Amiri script */
 html[dir="rtl"] .pinyon {
   font-family: "Amiri", serif;
   font-style: italic;
   letter-spacing: 0;
 }
 
-/* Adjust button placement for Arabic (moves it to the left side) */
 html[dir="rtl"] #lang-toggle {
   right: auto;
   left: 20px;
@@ -847,7 +768,6 @@ html[dir="rtl"] #music-toggle {
   left: 30px;
 }
 
-/* Adjust timeline hints and smaller text sizes for Arabic legibility */
 html[dir="rtl"] .story-header-hint {
   font-size: 2.2rem;
 }
@@ -856,36 +776,19 @@ html[dir="rtl"] .milestone-date {
   letter-spacing: 1px;
 }
 
-/* 1. Force the horizontal scroll track to stay LTR so GSAP doesn't break */
 html[dir="rtl"] .story-track {
   direction: ltr;
 }
 
-/* 2. Re-apply RTL only to the text content inside the glass cards */
 html[dir="rtl"] .milestone-content {
   direction: rtl;
+  text-align: center;
 }
 
-/* 3. Keep the countdown reading correctly from left to right (Days -> Seconds) 
-      Otherwise, Arabic flips it to (Seconds -> Days) */
 html[dir="rtl"] .countdown-container {
   direction: ltr;
 }
 
-/* --- RTL BUG FIXES (GSAP & Layout) - UPDATED --- */
-
-/* 1. Force the ENTIRE story wrapper to stay LTR so the scroll starts at the 1st panel */
 html[dir="rtl"] .story-wrapper {
-  direction: ltr;
-}
-
-/* 2. Re-apply RTL only to the text content inside the glass cards */
-html[dir="rtl"] .milestone-content {
-  direction: rtl;
-  text-align: center; /* Keeps the text beautifully centered in the card */
-}
-
-/* 3. Keep the countdown reading correctly from left to right (Days -> Seconds) */
-html[dir="rtl"] .countdown-container {
   direction: ltr;
 }

@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // --- BILINGUAL SUPPORT (EN/AR) ---
+    let isCanvasVisible = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isCanvasVisible = entry.isIntersecting;
+        });
+    });
+    observer.observe(document.getElementById('canvas-container'));
     const translations = {
         en: {
             splashMsg: "A journey of love begins...",
@@ -85,20 +92,20 @@ document.addEventListener("DOMContentLoaded", () => {
         document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', currentLang);
         langToggle.innerText = currentLang === 'en' ? 'عربي' : 'EN';
-        // Update all text elements
+
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[currentLang][key]) {
-                el.innerHTML = translations[currentLang][key]; // innerHTML so <br> tags work
+                el.innerHTML = translations[currentLang][key];
             }
         });
         if (currentLang === 'ar') {
-            document.body.classList.add('arabic-mode'); // Adds it for Arabic
+            document.body.classList.add('arabic-mode');
         } else {
-            document.body.classList.remove('arabic-mode'); // Removes it for English
+            document.body.classList.remove('arabic-mode');
         }
 
-        // Trigger GSAP refresh because layout widths might change in RTL
+
         setTimeout(() => ScrollTrigger.refresh(), 100);
     });
 
@@ -113,18 +120,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const preloader = document.getElementById("initials-preloader");
 
-
-    // Hide splash screen content initially to avoid overlap
     splashScreen.style.opacity = '0';
     splashScreen.style.pointerEvents = 'none';
 
-    // Wait for the SVG drawing animation, then fade to the envelope
     setTimeout(() => {
         preloader.style.opacity = '0';
         setTimeout(() => {
             preloader.style.display = 'none';
             splashScreen.style.opacity = '1';
-            splashScreen.style.pointerEvents = 'auto'; // allow clicking the envelope now
+            splashScreen.style.pointerEvents = 'auto';
         }, 1000);
     }, 2800);
 
@@ -157,8 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
-
-
     function openInvitation() {
         weddingMusic.play().catch(error => console.log(error));
         splashScreen.style.opacity = '0';
@@ -169,8 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
             musicToggle.style.display = 'flex';
             void mainContent.offsetWidth;
             mainContent.style.opacity = '1';
-
-            // --- ADD THIS GSAP ANIMATION ---
             gsap.to(".header h1", {
                 y: 0,
                 opacity: 1,
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
-    splashScreen.addEventListener("click" || "keydown", function handleTap(e) {
+    function handleTap(e) {
         if (e.type === "keydown" && (e.key === "Enter" || e.key === " ")) return;
         const bubble = document.createElement("div");
         bubble.classList.add("tap-bubble");
@@ -199,10 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
         bubble.addEventListener("animationend", () => {
             bubble.remove();
         });
-    });
-
-
-    const countDownDate = new Date("2026-07-31T00:00:00+03:00").getTime();
+    }
+    ['click', 'keydown'].forEach(evt => splashScreen.addEventListener(evt, handleTap));
+    const countDownDate = new Date("2026-07-31T19:00:00+03:00").getTime();
     const x = setInterval(function () {
         const now = new Date().getTime();
         const distance = countDownDate - now;
@@ -223,14 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("countdown-expired").style.display = "block";
         }
     }, 1000);
-
-
-
-
-
     function initStoryScroll() {
-
-
         let track = document.querySelector(".story-track");
         let panels = gsap.utils.toArray(".story-panel");
 
@@ -244,24 +236,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 end: "+=5000",
             }
         });
-
-
-
         ScrollTrigger.create({
-            trigger: panels[4], // The 5th panel (The Wedding)
+            trigger: panels[4],
             containerAnimation: scrollTween,
-            start: "left 75%", // Triggers right before the panel is fully in view
+            start: "left 75%",
             onEnter: () => {
                 gsap.to(document.documentElement, {
                     "--bg-color": "#231b15",
                     "--text-color": "#faedcd",
                     "--accent-color": "#e0c3a3",
-                    duration: 1.2, // Fast, clean transition
+                    duration: 1.2,
                     ease: "power2.inOut"
                 });
             },
             onLeaveBack: () => {
-                // Instantly reverts to daytime if they scroll backwards to the Engagement
                 gsap.to(document.documentElement, {
                     "--bg-color": "#fdf8f5",
                     "--text-color": "#4a3f35",
@@ -273,7 +261,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         panels.forEach((panel, index) => {
             let text = panel.querySelectorAll("h3, p");
-
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: panel,
@@ -283,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     toggleActions: "play reverse play reverse",
                     onEnter: () => {
                         if (navigator.vibrate) {
-                            navigator.vibrate(15); // A tiny, subtle 15-millisecond vibration
+                            navigator.vibrate(15);
                         }
                     },
                     onEnterBack: () => {
@@ -294,20 +281,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-
             tl.fromTo(text,
                 { y: 30, opacity: 0 },
                 { y: 0, opacity: 1, duration: 1, stagger: 0.2 },
                 0
             );
-
-
             if (index === 0) {
                 tl.fromTo(".scene1-boy", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
                     .fromTo(".scene1-girl", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
                     .to(".scene1-heart", {
                         y: -80,
-                        x: 0,        // start above
+                        x: 0,
                         scale: 0.6,
                         opacity: 0,
                     }, 1.3)
@@ -323,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .to(".scene1-heart", {
                         scale: 1,
                         duration: 1,
-                        ease: "back.out(1.7)" // soft bounce settle
+                        ease: "back.out(1.7)"
                     }, 2.3);
             }
             else if (index === 1) {
@@ -341,14 +325,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     .fromTo(".scene4-ring", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.5);
             }
             else if (index === 4) {
-                // Dynamically calculate the exact mathematical length of the path
-                const archPath = document.querySelector(".scene5-arch");
-                const pathLength = archPath.getTotalLength() + 2; // +2 adds a tiny safety buffer
 
-                // Force GSAP to start exactly at the dynamic length, then animate to 0
-                tl.fromTo(".scene5-arch", 
-                        { strokeDasharray: pathLength, strokeDashoffset: pathLength },
-                        { strokeDashoffset: 0, duration: 2, ease: "power2.inOut" }, 0.2)
+                const archPath = document.querySelector(".scene5-arch");
+                const pathLength = archPath.getTotalLength() + 2;
+                tl.fromTo(".scene5-arch",
+                    { strokeDasharray: pathLength, strokeDashoffset: pathLength },
+                    { strokeDashoffset: 0, duration: 2, ease: "power2.inOut" }, 0.2)
                     .fromTo(".scene5-couple", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 1.5);
             }
         });
@@ -372,7 +354,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const particleCount = isMobile ? 1000 : 2500;
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
-
         const shapeScatter = new Float32Array(particleCount * 3);
         const shapeSphere = new Float32Array(particleCount * 3);
         const shapeHeart = new Float32Array(particleCount * 3);
@@ -385,22 +366,18 @@ document.addEventListener("DOMContentLoaded", () => {
             shapeScatter[i * 3 + 1] = (Math.random() - 0.5) * 100;
             shapeScatter[i * 3 + 2] = (Math.random() - 0.5) * 100;
 
-
             let r = 20 * Math.cbrt(Math.random());
             let theta = Math.random() * 2 * Math.PI;
             let phi = Math.acos(2 * Math.random() - 1);
             shapeSphere[i * 3] = r * Math.sin(phi) * Math.cos(theta);
             shapeSphere[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
             shapeSphere[i * 3 + 2] = r * Math.cos(phi);
-
-
             let t = (Math.random() * Math.PI * 2);
             let hx = 16 * Math.pow(Math.sin(t), 3);
             let hy = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
             shapeHeart[i * 3] = hx + (Math.random() * 4 - 2);
             shapeHeart[i * 3 + 1] = hy + (Math.random() * 4 - 2);
             shapeHeart[i * 3 + 2] = (Math.random() * 4 - 2);
-
 
             if (i < particleCount * 0.85) {
 
@@ -433,26 +410,20 @@ document.addEventListener("DOMContentLoaded", () => {
             shapeInfinity[i * 3] = 22 * Math.cos(infT) + (Math.random() * 3 - 1.5);
             shapeInfinity[i * 3 + 1] = 9 * Math.sin(2 * infT) + (Math.random() * 3 - 1.5);
             shapeInfinity[i * 3 + 2] = (Math.random() * 4 - 2);
-
-
             positions[i * 3] = shapeHeart[i * 3];
             positions[i * 3 + 1] = shapeHeart[i * 3 + 1];
             positions[i * 3 + 2] = shapeHeart[i * 3 + 2];
         }
 
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
         const material = new THREE.PointsMaterial({
-            color: 0xD4A373, // Lighter golden/sand color (var(--primary-color))
-            size: 0.40,      // Slightly scaled down
+            color: 0xD4A373,
+            size: 0.40,
             transparent: true,
-            opacity: 0.45    // Lower opacity makes it a subtle, elegant texture
+            opacity: 0.45
         });
-
         const particles = new THREE.Points(geometry, material);
         scene.add(particles);
-
-
         const allShapes = [shapeHeart, shapeScatter, shapeSphere, shapeRing, shapeInfinity];
 
         ScrollTrigger.create({
@@ -484,14 +455,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-
         function animate() {
             requestAnimationFrame(animate);
-
+            if (!isCanvasVisible) return;
 
             let time = Date.now() * 0.001;
-
-
             particles.rotation.y = Math.sin(time * 0.5) * 0.15;
             particles.rotation.x = Math.sin(time * 0.3) * 0.10;
             particles.position.y = Math.sin(time * 1.2) * 1.5;
@@ -499,8 +467,6 @@ document.addEventListener("DOMContentLoaded", () => {
             renderer.render(scene, camera);
         }
         animate();
-
-
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -514,26 +480,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     const cursor = document.querySelector('.custom-cursor');
-
-    // Check if device has a mouse
     if (window.matchMedia("(pointer: fine)").matches) {
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        // Add hover effect to interactive elements
         const interactives = document.querySelectorAll('a, button, #splash-screen');
         interactives.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover-active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover-active'));
         });
     }
-
-    // --- POLAROID FLOATING ANIMATION ---
     gsap.to(".polaroid", {
-        y: "-=15", // Moves 15px up from wherever it currently is
-        rotation: "+=5", // Wobbles 3 degrees from its current tilt
+        y: "-=15",
+        rotation: "+=5",
         duration: 3,
         yoyo: true,
         repeat: -1,
