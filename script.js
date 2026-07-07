@@ -9,8 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(document.getElementById('canvas-container'));
     const translations = {
         en: {
-            activitiesH2: "Capture the Memories",
-            activitiesDesc: "Your presence is our greatest gift. During the celebration, we’d love for you to help us capture the magic of the night.<br><br>Strike a pose at the <strong>photobooth</strong>, pick up the vintage phone to leave a sweet voice message in our <strong>audio guestbook</strong>, and write a little note in our <strong>traditional guestbook</strong>.<br><br>We can't wait to look back on these memories for years to come!",
+                activitiesH2: "Capture the Memories",
+    activitiesIntro: "Your presence is our greatest gift. During the celebration, we’d love for you to help us capture the magic of our night:",
+    boothTitle: "The Photobooth",
+    boothDesc: "Strike a pose and take a memory home with you.",
+    audioTitle: "The Audio Guestbook",
+    audioDesc: "Pick up the vintage phone and leave us a voice message.",
+    bookTitle: "The Guestbook",
+    bookDesc: "Don't forget to sign our traditional book with a sweet note.",
+
 
             splashMsg: "A journey of love begins...",
             splashSwipe: "Tap anywhere to open",
