@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(document.getElementById('canvas-container'));
     const translations = {
         en: {
+            activitiesH2: "Capture the Memories",
+            activitiesDesc: "Your presence is our greatest gift. During the celebration, we’d love for you to help us capture the magic of the night.<br><br>Strike a pose at the <strong>photobooth</strong>, pick up the vintage phone to leave a sweet voice message in our <strong>audio guestbook</strong>, and write a little note in our <strong>traditional guestbook</strong>.<br><br>We can't wait to look back on these memories for years to come!",
+
             splashMsg: "A journey of love begins...",
             splashSwipe: "Tap anywhere to open",
             header1: "Together with their families",
@@ -46,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
             saveDate: "Save the Date"
         },
         ar: {
+            activitiesH2: "اصنعوا معنا أجمل الذكريات",
+            activitiesDesc: "حضوركم هو أجمل هدية. خلال الحفل، يسعدنا أن تشاركونا في تخليد أجمل اللحظات.<br><br>التقطوا بعض الصور المرحة في <strong>كابينة التصوير</strong>، واتركوا لنا رسالة صوتية دافئة عبر <strong>هاتف الذكريات</strong>، ولا تنسوا كتابة أمنية لطيفة في <strong>دفتر الزوار</strong>.<br><br>لا يسعنا الانتظار لنحتفظ بهذه الذكريات إلى الأبد!",
+
             splashMsg: "...تبدأ رحلة الحب",
             splashSwipe: "اضغط للفتح",
             header1: "تتشرف عائلتانا بدعوتكم",
