@@ -796,3 +796,16 @@ html[dir="rtl"] .countdown-container {
 html[dir="rtl"] .story-wrapper {
   direction: ltr;
 }
+
+.activities-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.activities-text strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
