@@ -850,3 +850,74 @@ html[dir="rtl"] .story-wrapper {
   }
 }
 
+/* --- GESTURE HINT POPUP --- */
+.gesture-hint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(253, 248, 245, 0.85);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--primary-color);
+  padding: 12px 25px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 10px 25px rgba(74, 63, 53, 0.15);
+}
+
+.gesture-hint.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.gesture-hint p {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.gesture-icon {
+  color: var(--accent-color);
+  height: 40px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Updated realistic swipe animation for the solid hand */
+.gesture-icon .hand-icon {
+  animation: swipeHandSolid 1.8s infinite ease-in-out;
+  transform-origin: center bottom;
+}
+
+@keyframes swipeHandSolid {
+  0% { 
+    transform: translateY(12px) scale(1.05); 
+    opacity: 0; 
+  }
+  20% { 
+    transform: translateY(12px) scale(0.95); /* Presses down */
+    opacity: 1; 
+  } 
+  70% { 
+    transform: translateY(-12px) scale(0.95); /* Drags up */
+    opacity: 1; 
+  } 
+  100% { 
+    transform: translateY(-20px) scale(1.05); /* Lifts off and fades */
+    opacity: 0; 
+  } 
+}
+
+@media (max-width: 768px) {
+  .gesture-hint { bottom: 100px; }
+}

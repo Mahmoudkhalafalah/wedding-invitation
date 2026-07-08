@@ -7,20 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
     observer.observe(document.getElementById('canvas-container'));
+    
     const translations = {
         en: {
-                activitiesH2: "Capture the Memories",
-    activitiesIntro: "Your presence is our greatest gift. During the celebration, we’d love for you to help us capture the magic of our night:",
-    boothTitle: "The Photobooth",
-    boothDesc: "Strike a pose and take a memory home with you.",
-    audioTitle: "The Audio Guestbook",
-    audioDesc: "Pick up the vintage phone and leave us a voice message.",
-    bookTitle: "The Guestbook",
-    bookDesc: "Don't forget to sign our traditional book with a sweet note.",
-
+            activitiesH2: "Capture the Memories",
+            activitiesIntro: "Your presence is our greatest gift. During the celebration, we’d love for you to help us capture the magic of our night:",
+            boothTitle: "The Photobooth",
+            boothDesc: "Strike a pose and take a memory home with you.",
+            audioTitle: "The Audio Guestbook",
+            audioDesc: "Pick up the vintage phone and leave us a voice message.",
+            bookTitle: "The Guestbook",
+            bookDesc: "Don't forget to sign our traditional book with a sweet note.",
 
             splashMsg: "A journey of love begins...",
             splashSwipe: "Tap anywhere to open",
+            swipeDownHint: "Swipe or Scroll Down",
             header1: "Together with their families",
             names: "Mahmoud <br> & <br> Reham",
             header2: "Joyfully invite you to celebrate their wedding",
@@ -30,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
             mapBtn: "View Map Location",
             beginning: "The beginning...",
             endCaption: "Always smiling",
-            storyHint: "Scroll to unfold our journey...",
+            storyHint: "Scroll down to unfold our journey...",
+            continueHint: "Keep scrolling down for celebration details",
             s1Date: "March 1st, 2022",
             s1Title: "Our First Meeting",
             s1Desc: "Two separate paths suddenly aligned, and a beautiful connection began.",
@@ -56,18 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
             saveDate: "Save the Date"
         },
         ar: {
-                activitiesH2: "اصنعوا معنا أجمل الذكريات",
-    activitiesIntro: "حضوركم هو أجمل هدية. خلال الحفل، يسعدنا أن تشاركونا في تخليد أجمل اللحظات:",
-    boothTitle: "كابينة التصوير",
-    boothDesc: "التقطوا صورًا مرحة لتبقى معكم ذكرى لا تُنسى.",
-    audioTitle: "هاتف الذكريات",
-    audioDesc: "ارفعوا سماعة الهاتف الكلاسيكي واتركوا لنا رسالة صوتية دافئة.",
-    bookTitle: "دفتر الزوار",
-    bookDesc: "لا تنسوا كتابة أمنية لطيفة في دفتر زوارنا التقليدي.",
-
+            activitiesH2: "اصنعوا معنا أجمل الذكريات",
+            activitiesIntro: "حضوركم هو أجمل هدية. خلال الحفل، يسعدنا أن تشاركونا في تخليد أجمل اللحظات:",
+            boothTitle: "كابينة التصوير",
+            boothDesc: "التقطوا صورًا مرحة لتبقى معكم ذكرى لا تُنسى.",
+            audioTitle: "هاتف الذكريات",
+            audioDesc: "ارفعوا سماعة الهاتف الكلاسيكي واتركوا لنا رسالة صوتية دافئة.",
+            bookTitle: "دفتر الزوار",
+            bookDesc: "لا تنسوا كتابة أمنية لطيفة في دفتر زوارنا التقليدي.",
 
             splashMsg: "...تبدأ رحلة الحب",
             splashSwipe: "اضغط للفتح",
+            swipeDownHint: "مرر لأسفل للمتابعة",
             header1: "تتشرف عائلتانا بدعوتكم",
             names: "محمود <br> و <br> ريهام",
             header2: "لمشاركتنا فرحة زفافنا",
@@ -77,7 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
             mapBtn: "عرض الموقع على الخريطة",
             beginning: "...البداية",
             endCaption: "دائماً مبتسمين",
-            storyHint: "...اسحب لتكتشف قصتنا",
+            storyHint: "مرر لأسفل لتكتشف قصتنا...",
+            continueHint: "استمر في التمرير لأسفل لمعرفة تفاصيل الحفل",
             s1Date: "١ مارس ٢٠٢٢",
             s1Title: "لقاؤنا الأول",
             s1Desc: "طريقان منفصلان التقيا فجأة، وبدأ اتصال جميل.",
@@ -124,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             document.body.classList.remove('arabic-mode');
         }
-
 
         setTimeout(() => ScrollTrigger.refresh(), 100);
     });
@@ -181,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
     function openInvitation() {
         weddingMusic.play().catch(error => console.log(error));
         splashScreen.style.opacity = '0';
@@ -221,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     ['click', 'keydown'].forEach(evt => splashScreen.addEventListener(evt, handleTap));
+
     const countDownDate = new Date("2026-07-31T19:00:00+03:00").getTime();
     const x = setInterval(function () {
         const now = new Date().getTime();
@@ -242,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("countdown-expired").style.display = "block";
         }
     }, 1000);
+
     function initStoryScroll() {
         let track = document.querySelector(".story-track");
         let panels = gsap.utils.toArray(".story-panel");
@@ -256,6 +261,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 end: "+=5000",
             }
         });
+
+        const dots = document.querySelectorAll('.story-nav-dots .dot');
+
+        gsap.to(".story-track", {
+            x: () => -(document.querySelector(".story-track").scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".story-wrapper",
+                pin: true,
+                scrub: 1,
+                start: "top top",
+                end: () => "+=" + document.querySelector(".story-track").scrollWidth,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    const totalPanels = 5;
+                    const currentIndex = Math.min(Math.floor(progress * totalPanels), totalPanels - 1);
+
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+
         ScrollTrigger.create({
             trigger: panels[4],
             containerAnimation: scrollTween,
@@ -279,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         });
+
         panels.forEach((panel, index) => {
             let text = panel.querySelectorAll("h3, p");
             let tl = gsap.timeline({
@@ -306,29 +340,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 { y: 0, opacity: 1, duration: 1, stagger: 0.2 },
                 0
             );
+
             if (index === 0) {
                 tl.fromTo(".scene1-boy", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
                     .fromTo(".scene1-girl", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5)
-                    .to(".scene1-heart", {
-                        y: -80,
-                        x: 0,
-                        scale: 0.6,
-                        opacity: 0,
-                    }, 1.3)
-
-                    .to(".scene1-heart", {
-                        y: 0,
-                        opacity: 1,
-                        scale: 1.1,
-                        duration: 2,
-                        ease: "power2.in"
-                    }, 1.3)
-
-                    .to(".scene1-heart", {
-                        scale: 1,
-                        duration: 1,
-                        ease: "back.out(1.7)"
-                    }, 2.3);
+                    .to(".scene1-heart", { y: -80, x: 0, scale: 0.6, opacity: 0 }, 1.3)
+                    .to(".scene1-heart", { y: 0, opacity: 1, scale: 1.1, duration: 2, ease: "power2.in" }, 1.3)
+                    .to(".scene1-heart", { scale: 1, duration: 1, ease: "back.out(1.7)" }, 2.3);
             }
             else if (index === 1) {
                 tl.fromTo(".scene2-boy", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, 0.5)
@@ -345,7 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     .fromTo(".scene4-ring", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.5);
             }
             else if (index === 4) {
-
                 const archPath = document.querySelector(".scene5-arch");
                 const pathLength = archPath.getTotalLength() + 2;
                 tl.fromTo(".scene5-arch",
@@ -355,7 +372,76 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // --- SMART GESTURE HINT LOGIC ---
+        // Moved inside initStoryScroll so it doesn't trigger on the splash screen
+        const gestureHint = document.getElementById('gesture-hint');
+        let inStorySection = false;
+        let hintTimeout;
+        let hasShownInactivityHint = false; // Only show inactivity hint once per user!
 
+        function showHint() {
+            if (inStorySection) gestureHint.classList.add('show');
+        }
+
+        function hideHint() {
+            gestureHint.classList.remove('show');
+        }
+
+        function resetHintTimer() {
+            hideHint();
+            clearTimeout(hintTimeout);
+            // Only fire the 5-second inactivity hint once
+            if (inStorySection && !hasShownInactivityHint) {
+                hintTimeout = setTimeout(() => {
+                    showHint();
+                    hasShownInactivityHint = true; 
+                }, 5000);
+            }
+        }
+
+        ScrollTrigger.create({
+            trigger: ".story-container",
+            start: "top center",
+            end: "+=5000",
+            onEnter: () => { inStorySection = true; resetHintTimer(); },
+            onLeave: () => { inStorySection = false; hideHint(); clearTimeout(hintTimeout); },
+            onEnterBack: () => { inStorySection = true; resetHintTimer(); },
+            onLeaveBack: () => { inStorySection = false; hideHint(); clearTimeout(hintTimeout); }
+        });
+
+        window.addEventListener('scroll', resetHintTimer, { passive: true });
+
+        window.addEventListener('wheel', (e) => {
+            if (inStorySection && Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 5) {
+                showHint();
+                clearTimeout(hintTimeout);
+                hintTimeout = setTimeout(hideHint, 4000);
+            }
+        }, { passive: true });
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        window.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            let touchEndX = e.changedTouches[0].screenX;
+            let touchEndY = e.changedTouches[0].screenY;
+            let diffX = Math.abs(touchEndX - touchStartX);
+            let diffY = Math.abs(touchEndY - touchStartY);
+
+            if (inStorySection && diffX > diffY && diffX > 30) {
+                showHint();
+                clearTimeout(hintTimeout);
+                hintTimeout = setTimeout(hideHint, 4000);
+            }
+        }, { passive: true });
+
+
+        // --- THREE.JS PARTICLES ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -381,7 +467,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const shapeInfinity = new Float32Array(particleCount * 3);
 
         for (let i = 0; i < particleCount; i++) {
-
             shapeScatter[i * 3] = (Math.random() - 0.5) * 100;
             shapeScatter[i * 3 + 1] = (Math.random() - 0.5) * 100;
             shapeScatter[i * 3 + 2] = (Math.random() - 0.5) * 100;
@@ -400,31 +485,23 @@ document.addEventListener("DOMContentLoaded", () => {
             shapeHeart[i * 3 + 2] = (Math.random() * 4 - 2);
 
             if (i < particleCount * 0.85) {
-
                 let angle = Math.random() * Math.PI * 2;
                 let radiusX = 18 + (Math.random() * 2);
                 let radiusY = 7 + (Math.random() * 1.5);
-
                 shapeRing[i * 3] = Math.cos(angle) * radiusX;
                 shapeRing[i * 3 + 1] = Math.sin(angle) * radiusY - 4;
                 shapeRing[i * 3 + 2] = Math.sin(angle) * 10;
             } else {
-
                 let px = (Math.random() - 0.5) * 10;
                 let py = (Math.random() - 0.5) * 12;
                 let pz = (Math.random() - 0.5) * 10;
-
-
                 if (Math.abs(px) + Math.abs(py * 0.8) + Math.abs(pz) > 6) {
                     px *= 0.4; py *= 0.4; pz *= 0.4;
                 }
-
                 shapeRing[i * 3] = px;
-
                 shapeRing[i * 3 + 1] = py + 6.5;
                 shapeRing[i * 3 + 2] = pz + 10;
             }
-
 
             let infT = Math.random() * Math.PI * 2;
             shapeInfinity[i * 3] = 22 * Math.cos(infT) + (Math.random() * 3 - 1.5);
@@ -453,13 +530,10 @@ document.addEventListener("DOMContentLoaded", () => {
             scrub: true,
             onUpdate: (self) => {
                 let p = self.progress;
-
                 let totalSegments = allShapes.length - 1;
                 let rawSegment = p * totalSegments;
-
                 let startIndex = Math.floor(rawSegment);
                 let endIndex = Math.min(startIndex + 1, totalSegments);
-
                 let localProgress = rawSegment - startIndex;
                 let easeProgress = -0.5 * (Math.cos(Math.PI * localProgress) - 1);
 
@@ -487,6 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderer.render(scene, camera);
         }
         animate();
+
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -499,6 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ScrollTrigger.refresh();
         });
     }
+
     const cursor = document.querySelector('.custom-cursor');
     if (window.matchMedia("(pointer: fine)").matches) {
         document.addEventListener('mousemove', (e) => {
@@ -511,6 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover-active'));
         });
     }
+
     gsap.to(".polaroid", {
         y: "-=15",
         rotation: "+=5",
@@ -520,6 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "sine.inOut",
         stagger: 0.5
     });
+
     window.addEventListener("scroll", () => {
         const scrollTop = document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -527,5 +605,3 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("scroll-progress").style.width = scrollPercent + "%";
     });
 });
-
-
