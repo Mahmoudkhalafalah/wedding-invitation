@@ -262,33 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        const dots = document.querySelectorAll('.story-nav-dots .dot');
-
-        gsap.to(".story-track", {
-            x: () => -(document.querySelector(".story-track").scrollWidth - window.innerWidth),
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".story-wrapper",
-                pin: true,
-                scrub: 1,
-                start: "top top",
-                end: () => "+=" + document.querySelector(".story-track").scrollWidth,
-                onUpdate: (self) => {
-                    const progress = self.progress;
-                    const totalPanels = 5;
-                    const currentIndex = Math.min(Math.floor(progress * totalPanels), totalPanels - 1);
-
-                    dots.forEach((dot, index) => {
-                        if (index === currentIndex) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
-                        }
-                    });
-                }
-            }
-        });
-
         ScrollTrigger.create({
             trigger: panels[4],
             containerAnimation: scrollTween,
